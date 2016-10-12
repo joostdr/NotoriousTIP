@@ -11,7 +11,7 @@ public class LoginService {
     }
 
     public static String loginUser(Login loginModel){
-        return checkUsernamePassword(loginModel.getUsername(), loginModel.getPassword()) ? "login" : "main";
+        return checkUsernamePassword(loginModel.getUsername(), loginModel.getPassword()) ? "main" : "login";
     }
 
     private static boolean checkUsernamePassword(String username, String password){
