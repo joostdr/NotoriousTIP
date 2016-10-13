@@ -1,5 +1,6 @@
 package com.hr.securitylab.restcontrollers;
 
+import com.hr.securitylab.services.HttpService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,4 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 public class CommandController {
+
+    @RequestMapping(value = "/on", method = RequestMethod.GET)
+    public void turnOn() throws Exception{
+        HttpService http = new HttpService();
+        http.turnOn();
+    }
+
+    @RequestMapping(value = "/off", method = RequestMethod.GET)
+    public void turnOff() throws Exception{
+        HttpService http = new HttpService();
+        http.turnOff();
+    }
+
 }
