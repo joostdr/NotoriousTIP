@@ -1,4 +1,4 @@
-package com.hr.securitylab.WebControllers;
+package com.hr.securitylab.webcontrollers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

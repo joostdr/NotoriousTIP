@@ -1,17 +1,17 @@
-package com.hr.securitylab.Models;
+package com.hr.securitylab.database.models;
 
 /**
  * Created by joost on 4-10-2016.
  */
-public class Login {
+public class User {
 
     private String username;
     private String password;
 
-    public Login() {
+    public User() {
     }
 
-    public Login(String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }

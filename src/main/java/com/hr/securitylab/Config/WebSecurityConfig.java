@@ -1,4 +1,4 @@
-package com.hr.securitylab.Config;
+package com.hr.securitylab.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
