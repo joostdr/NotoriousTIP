@@ -2,6 +2,8 @@ package com.hr.securitylab.database.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by joost on 4-10-2016.
@@ -14,6 +16,9 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int id;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Product> products;
 
     @Column(name = "username")
     private String username;
@@ -33,7 +38,8 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, Date created_at, Date updated_at, Date deleted_at) {
+    public User(Set<Product> products, String username, String password, Date created_at, Date updated_at, Date deleted_at) {
+        this.products = products;
         this.username = username;
         this.password = password;
         this.created_at = created_at;
@@ -47,6 +53,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public String getUsername() {
