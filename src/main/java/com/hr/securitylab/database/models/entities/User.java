@@ -1,8 +1,7 @@
-package com.hr.securitylab.database.models;
+package com.hr.securitylab.database.models.entities;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -19,6 +18,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Product> products;
+
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     @Column(name = "username")
     private String username;
@@ -38,8 +41,10 @@ public class User {
     public User() {
     }
 
-    public User(Set<Product> products, String username, String password, Date created_at, Date updated_at, Date deleted_at) {
+    public User(int id, Set<Product> products, Set<Role> roles, String username, String password, Date created_at, Date updated_at, Date deleted_at) {
+        this.id = id;
         this.products = products;
+        this.roles = roles;
         this.username = username;
         this.password = password;
         this.created_at = created_at;
@@ -61,6 +66,14 @@ public class User {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getUsername() {

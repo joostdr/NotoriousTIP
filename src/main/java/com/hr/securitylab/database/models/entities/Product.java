@@ -1,4 +1,4 @@
-package com.hr.securitylab.database.models;
+package com.hr.securitylab.database.models.entities;
 
 import javax.persistence.*;
 import java.util.Date;

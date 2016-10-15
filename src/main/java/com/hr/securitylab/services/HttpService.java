@@ -5,10 +5,13 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.conn.HttpHostConnectException;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,18 +41,22 @@ public class HttpService {
 
     private void executePost(String url) throws Exception{
         HttpPost post = new HttpPost(url);
-        getResponseCode(client.execute(post));
+        System.out.println(getResponseCode(client.execute(post)));
     }
 
-    private void prepareESP() throws Exception{
+    private void prepareESP() throws IOException{
         System.out.println("Preparing ESP...............................................");
         HttpPost post = new HttpPost("http://192.168.111.1/mode/2/o");
-        getResponseCode(client.execute(post));
+        try{
+            System.out.println(getResponseCode(client.execute(post)));
+        }
+        catch (HttpHostConnectException h){
+            System.out.println("No connection could be established with the target");
+        }
     }
 
-    private void getResponseCode(HttpResponse response){
-        int responseCode = response.getStatusLine().getStatusCode();
-        System.out.println(responseCode);
+    private int getResponseCode(HttpResponse response){
+        return response.getStatusLine().getStatusCode();
     }
 
 }

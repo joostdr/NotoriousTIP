@@ -1,6 +1,6 @@
 package com.hr.securitylab.webcontrollers;
 
-import com.hr.securitylab.database.models.User;
+import com.hr.securitylab.database.models.entities.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

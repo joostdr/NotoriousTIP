@@ -14,10 +14,18 @@
     <context:component-scan
             base-package="com.hr.securitylab.database"/>
 
-    <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <!-- Server DB -->
+    <!--<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="url" value="jdbc:mysql://145.24.222.226:3306/securitylab?zeroDateTimeBehavior=convertToNull"/>
         <property name="username" value="joost"/>
         <property name="password" value="datboi123"/>
+    </bean>-->
+
+    <!-- Home DB -->
+    <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="url" value="jdbc:mysql://localhost/securitylab?zeroDateTimeBehavior=convertToNull"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
     </bean>
 
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
