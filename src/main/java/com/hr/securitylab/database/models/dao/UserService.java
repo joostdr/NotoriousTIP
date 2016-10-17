@@ -6,7 +6,11 @@ import com.hr.securitylab.database.models.entities.User;
  * Created by Joost on 14-10-2016.
  */
 public interface UserService {
-    public User findByUsername(String username);
+    User findByUsername(String username);
 
-    public void saveOrUpdate(User user);
+    void saveOrUpdate(User user);
+
+    boolean checkIfEmailExists(String email);
+
+    boolean checkIfUsernameExists(String username);
 }

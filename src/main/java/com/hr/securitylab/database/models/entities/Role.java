@@ -8,15 +8,15 @@ import java.util.Set;
  */
 
 @Entity
-@Table(name = "role")
+@Table(name = "name")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private int id;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "name")
+    private String name;
 
     @ManyToMany(mappedBy = "roles",fetch = FetchType.LAZY)
     private Set<User> users;
@@ -24,9 +24,9 @@ public class Role {
     public Role() {
     }
 
-    public Role(int id, String role, Set<User> users) {
+    public Role(int id, String name, Set<User> users) {
         this.id = id;
-        this.role = role;
+        this.name = name;
         this.users = users;
     }
 
@@ -38,12 +38,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Set<User> getUsers() {

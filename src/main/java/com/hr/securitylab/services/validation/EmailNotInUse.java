@@ -1,4 +1,4 @@
-package com.hr.securitylab.services;
+package com.hr.securitylab.services.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -12,15 +12,17 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * Created by Joost on 16-10-2016.
+ * Created by Joost on 17-10-2016.
  */
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = CustomEmailValidator.class)
+@Constraint(validatedBy = CustomEmailNotInUseValidator.class)
 @Documented
+public @interface EmailNotInUse {
 
-public @interface ValidEmail {
-    String message() default "Invalid email";
+    String message() default "Email already in use";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
+
+
 }

@@ -37,4 +37,22 @@ public class UserDaoImpl implements UserDao {
     public void saveOrUpdate(User user) {
         sessionFactory.getCurrentSession().saveOrUpdate(user);
     }
+
+    @Override
+    public boolean checkIfEmailExists(String email) {
+        String hql = "FROM User u WHERE u.email = :user_email";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("user_email",email);
+        Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
+        return result.isPresent();
+    }
+
+    @Override
+    public boolean checkIfUsernameExists(String username) {
+        String hql = "FROM User u WHERE u.username = :username";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("username",username);
+        Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
+        return result.isPresent();
+    }
 }

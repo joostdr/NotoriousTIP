@@ -11,4 +11,8 @@ public interface UserDao {
 
     void saveOrUpdate(User user);
 
+    boolean checkIfEmailExists(String email);
+
+    boolean checkIfUsernameExists(String username);
+
 }

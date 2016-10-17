@@ -1,4 +1,4 @@
-package com.hr.securitylab.services;
+package com.hr.securitylab.services.validation;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

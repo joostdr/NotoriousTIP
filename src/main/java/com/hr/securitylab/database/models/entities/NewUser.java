@@ -1,7 +1,9 @@
 package com.hr.securitylab.database.models.entities;
 
-import com.hr.securitylab.services.ValidEmail;
-import com.hr.securitylab.services.ValidPassword;
+import com.hr.securitylab.services.validation.EmailNotInUse;
+import com.hr.securitylab.services.validation.UsernameNotInUse;
+import com.hr.securitylab.services.validation.ValidEmail;
+import com.hr.securitylab.services.validation.ValidPassword;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -13,6 +15,7 @@ import javax.validation.constraints.Size;
 public class NewUser {
 
     @Size(min=8, max=20)
+    @UsernameNotInUse
     @NotEmpty
     @NotNull
     private String username;
@@ -28,11 +31,11 @@ public class NewUser {
     private String matchingPassword;
 
     @ValidEmail
+    @EmailNotInUse
     @NotEmpty
     @NotNull
     private String email;
 
-    @ValidEmail
     @NotEmpty
     @NotNull
     private String matchingEmail;

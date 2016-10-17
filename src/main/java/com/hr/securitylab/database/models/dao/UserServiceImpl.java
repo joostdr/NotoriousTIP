@@ -33,4 +33,17 @@ public class UserServiceImpl implements UserService {
     public void saveOrUpdate(User user) {
         userDao.saveOrUpdate(user);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public boolean checkIfEmailExists(String email) {
+        return userDao.checkIfEmailExists(email);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public boolean checkIfUsernameExists(String username) {
+        return userDao.checkIfUsernameExists(username);
+    }
+
 }
