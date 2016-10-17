@@ -1,7 +1,7 @@
-package com.hr.securitylab.services.validation;
+package com.hr.securitylab.services.validation.classes;
 
 import com.hr.securitylab.database.models.DatabaseFactory;
-import org.springframework.validation.beanvalidation.CustomValidatorBean;
+import com.hr.securitylab.services.validation.annotations.UsernameNotInUse;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * Created by Joost on 17-10-2016.
  */
-public class CustomUsernameNotInUseValidator implements ConstraintValidator<UsernameNotInUse, String> {
+public class UsernameNotInUseValidator implements ConstraintValidator<UsernameNotInUse, String> {
     @Override
     public void initialize(UsernameNotInUse constraintAnnotation) {
 

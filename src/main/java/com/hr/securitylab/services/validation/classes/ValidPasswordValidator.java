@@ -1,5 +1,6 @@
-package com.hr.securitylab.services.validation;
+package com.hr.securitylab.services.validation.classes;
 import com.google.common.base.Joiner;
+import com.hr.securitylab.services.validation.annotations.ValidPassword;
 import org.passay.*;
 
 import javax.validation.ConstraintValidator;
@@ -9,7 +10,7 @@ import java.util.Arrays;
 /**
  * Created by Joost on 17-10-2016.
  */
-public class CustomPasswordValidator implements ConstraintValidator<ValidPassword, String> {
+public class ValidPasswordValidator implements ConstraintValidator<ValidPassword, String> {
 
     @Override
     public void initialize(ValidPassword arg0) {

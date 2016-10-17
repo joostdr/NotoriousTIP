@@ -14,7 +14,7 @@ import java.util.Date;
 public class RegisterService {
 
     public void showErrors(Errors errors){
-
+        System.out.println(errors.getGlobalErrors());
     }
 
     public void createNewAccount(NewUser newUser){

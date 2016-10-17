@@ -1,6 +1,7 @@
-package com.hr.securitylab.services.validation;
+package com.hr.securitylab.services.validation.classes;
 
 import com.hr.securitylab.database.models.DatabaseFactory;
+import com.hr.securitylab.services.validation.annotations.EmailNotInUse;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -8,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * Created by Joost on 17-10-2016.
  */
-public class CustomEmailNotInUseValidator implements ConstraintValidator<EmailNotInUse, String> {
+public class EmailNotInUseValidator implements ConstraintValidator<EmailNotInUse, String> {
     @Override
     public void initialize(EmailNotInUse constraintAnnotation) {
 

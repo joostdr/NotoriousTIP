@@ -1,4 +1,6 @@
-package com.hr.securitylab.services.validation;
+package com.hr.securitylab.services.validation.classes;
+
+import com.hr.securitylab.services.validation.annotations.ValidEmail;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -8,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Joost on 16-10-2016.
  */
-public class CustomEmailValidator implements ConstraintValidator<ValidEmail, String>{
+public class ValidEmailValidator implements ConstraintValidator<ValidEmail, String>{
 
     private Pattern pattern;
     private Matcher matcher;

@@ -24,13 +24,17 @@
                     <h1>Register</h1>
                     <form action="#" th:action="@{/register}" th:object="${newuser}" method="post" id="login-form"
                           autocomplete="off">
+                        <th:block th:if="${#fields.hasGlobalErrors()}">
+                            <p class="errorText" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+                        </th:block>
+
                         <div class="form-group">
                             <!--<label for="username">Must be 8 to 20 characters</label>-->
                             <input id="username" type="text" th:field="*{username}" class="form-control"
                                    placeholder="Username"/>
                             <th:block th:switch="${#fields.hasErrors('username')}">
-                                <p th:case="false" class = "registrationDescription">Must contain 8 to 20 characters</p>
-                                <p th:case="true" class = "errorText" th:errors="*{username}"></p>
+                                <p th:case="false" class="registrationDescription">Must contain 8 to 20 characters</p>
+                                <p th:case="true" class="errorText" th:errors="*{username}"></p>
                             </th:block>
                         </div>
                         <div class="form-group">
@@ -38,8 +42,9 @@
                             <input id="password" type="password" th:field="*{password}" class="form-control"
                                    placeholder="Password"/>
                             <th:block th:switch="${#fields.hasErrors('password')}">
-                                <p th:case="false" class = "registrationDescription">Must contain 8 to 20 characters, 1 uppercase character, 1 number, 1 special character</p>
-                                <p th:case="true" class = "errorText" th:errors="*{password}"></p>
+                                <p th:case="false" class="registrationDescription">Must contain 8 to 20 characters, 1
+                                    uppercase character, 1 number, 1 special character</p>
+                                <p th:case="true" class="errorText" th:errors="*{password}"></p>
                             </th:block>
                         </div>
                         <div class="form-group">
@@ -47,8 +52,8 @@
                             <input id="matchingPassword" type="password" th:field="*{matchingPassword}"
                                    class="form-control" placeholder="Enter password again"/>
                             <th:block th:switch="${#fields.hasErrors('matchingPassword')}">
-                                <p th:case="false" class = "registrationDescription"></p>
-                                <p th:case="true" class = "errorText" th:errors="*{matchingPassword}"></p>
+                                <p th:case="false" class="registrationDescription"></p>
+                                <p th:case="true" class="errorText" th:errors="*{matchingPassword}"></p>
                             </th:block>
                         </div>
                         <div class="form-group">
@@ -56,8 +61,8 @@
                             <input id="email" type="text" th:field="*{email}" class="form-control"
                                    placeholder="Email address"/>
                             <th:block th:switch="${#fields.hasErrors('email')}">
-                                <p th:case="false" class = "registrationDescription">Must be a valid email address</p>
-                                <p th:case="true" class = "errorText" th:errors="*{email}"></p>
+                                <p th:case="false" class="registrationDescription">Must be a valid email address</p>
+                                <p th:case="true" class="errorText" th:errors="*{email}"></p>
                             </th:block>
                         </div>
                         <div class="form-group">
@@ -65,8 +70,8 @@
                             <input id="matchingEmail" type="text" th:field="*{matchingEmail}" class="form-control"
                                    placeholder="Enter email address again"/>
                             <th:block th:switch="${#fields.hasErrors('matchingEmail')}">
-                                <p th:case="false" class = "registrationDescription">Must contain 8 to 20 characters</p>
-                                <p th:case="true" class = "errorText" th:errors="*{matchingEmail}"></p>
+                                <p th:case="false" class="registrationDescription">Must contain 8 to 20 characters</p>
+                                <p th:case="true" class="errorText" th:errors="*{matchingEmail}"></p>
                             </th:block>
                         </div>
                         <div class="form-group">
@@ -74,8 +79,9 @@
                             <input id="productKey" type="text" th:field="*{productKey}" class="form-control"
                                    placeholder="Product key"/>
                             <th:block th:switch="${#fields.hasErrors('productKey')}">
-                                <p th:case="false" class = "registrationDescription">Can be found on the box of the product</p>
-                                <p th:case="true" class = "errorText" th:errors="*{productKey}"></p>
+                                <p th:case="false" class="registrationDescription">Can be found on the box of the
+                                    product</p>
+                                <p th:case="true" class="errorText" th:errors="*{productKey}"></p>
                             </th:block>
                         </div>
                         <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Send"/>

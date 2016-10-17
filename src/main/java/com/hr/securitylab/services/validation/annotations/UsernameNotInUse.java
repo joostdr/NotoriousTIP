@@ -1,4 +1,6 @@
-package com.hr.securitylab.services.validation;
+package com.hr.securitylab.services.validation.annotations;
+
+import com.hr.securitylab.services.validation.classes.UsernameNotInUseValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -11,18 +13,15 @@ import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-/**
- * Created by Joost on 17-10-2016.
- */
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = CustomEmailNotInUseValidator.class)
+@Constraint(validatedBy = UsernameNotInUseValidator.class)
 @Documented
-public @interface EmailNotInUse {
+public @interface UsernameNotInUse {
 
-    String message() default "Email already in use";
+    String message() default "Username already in use";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 
-
 }
+

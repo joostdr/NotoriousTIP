@@ -1,9 +1,6 @@
 package com.hr.securitylab.database.models.entities;
 
-import com.hr.securitylab.services.validation.EmailNotInUse;
-import com.hr.securitylab.services.validation.UsernameNotInUse;
-import com.hr.securitylab.services.validation.ValidEmail;
-import com.hr.securitylab.services.validation.ValidPassword;
+import com.hr.securitylab.services.validation.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
@@ -12,6 +9,10 @@ import javax.validation.constraints.Size;
 /**
  * Created by Joost on 16-10-2016.
  */
+@FieldMatch.List({
+        @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match"),
+        @FieldMatch(first = "email", second = "matchingEmail", message = "The email fields must match")
+})
 public class NewUser {
 
     @Size(min=8, max=20)

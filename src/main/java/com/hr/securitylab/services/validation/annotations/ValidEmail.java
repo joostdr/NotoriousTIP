@@ -1,4 +1,6 @@
-package com.hr.securitylab.services.validation;
+package com.hr.securitylab.services.validation.annotations;
+
+import com.hr.securitylab.services.validation.classes.ValidEmailValidator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -16,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Target({TYPE, FIELD, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = CustomEmailValidator.class)
+@Constraint(validatedBy = ValidEmailValidator.class)
 @Documented
 public @interface ValidEmail {
 
