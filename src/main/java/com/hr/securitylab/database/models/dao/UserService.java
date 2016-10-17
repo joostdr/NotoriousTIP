@@ -7,4 +7,6 @@ import com.hr.securitylab.database.models.entities.User;
  */
 public interface UserService {
     public User findByUsername(String username);
+
+    public void saveOrUpdate(User user);
 }

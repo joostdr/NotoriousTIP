@@ -8,6 +8,7 @@
     width: 30%;
     margin: 0 auto;
 }
+
 #login h1 {
     color: #1fa67b;
     font-size: 18px;
@@ -108,4 +109,14 @@
 
 .pull-center {
     text-align: center;
+}
+
+p.errorText{
+    color: #ff0000;
+}
+
+p.registrationDescription{
+    font-style: italic;
+    color: #a8a8a8;
+    font-size: 0.8em
 }
