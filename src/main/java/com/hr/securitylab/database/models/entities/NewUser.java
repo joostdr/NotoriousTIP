@@ -10,8 +10,7 @@ import javax.validation.constraints.Size;
  * Created by Joost on 16-10-2016.
  */
 @FieldMatch.List({
-        @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match"),
-        @FieldMatch(first = "email", second = "matchingEmail", message = "The email fields must match")
+        @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match")
 })
 public class NewUser {
 
@@ -27,19 +26,7 @@ public class NewUser {
     @ValidPassword
     private String password;
 
-    @NotEmpty
-    @NotNull
     private String matchingPassword;
-
-    @ValidEmail
-    @EmailNotInUse
-    @NotEmpty
-    @NotNull
-    private String email;
-
-    @NotEmpty
-    @NotNull
-    private String matchingEmail;
 
     @NotEmpty
     @NotNull
@@ -48,12 +35,10 @@ public class NewUser {
     public NewUser() {
     }
 
-    public NewUser(String username, String password, String matchingPassword, String email, String matchingEmail, String productKey) {
+    public NewUser(String username, String password, String matchingPassword, String productKey) {
         this.username = username;
         this.password = password;
         this.matchingPassword = matchingPassword;
-        this.email = email;
-        this.matchingEmail = matchingEmail;
         this.productKey = productKey;
     }
 
@@ -79,22 +64,6 @@ public class NewUser {
 
     public void setMatchingPassword(String matchingPassword) {
         this.matchingPassword = matchingPassword;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getMatchingEmail() {
-        return matchingEmail;
-    }
-
-    public void setMatchingEmail(String matchingEmail) {
-        this.matchingEmail = matchingEmail;
     }
 
     public String getProductKey() {

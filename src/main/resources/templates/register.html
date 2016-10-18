@@ -24,10 +24,6 @@
                     <h1>Register</h1>
                     <form action="#" th:action="@{/register}" th:object="${newuser}" method="post" id="login-form"
                           autocomplete="off">
-                        <th:block th:if="${#fields.hasGlobalErrors()}">
-                            <p class="errorText" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
-                        </th:block>
-
                         <div class="form-group">
                             <!--<label for="username">Must be 8 to 20 characters</label>-->
                             <input id="username" type="text" th:field="*{username}" class="form-control"
@@ -51,27 +47,8 @@
                             <!--<label for="matchingPassword">Must be 8 to 20 characters</label>-->
                             <input id="matchingPassword" type="password" th:field="*{matchingPassword}"
                                    class="form-control" placeholder="Enter password again"/>
-                            <th:block th:switch="${#fields.hasErrors('matchingPassword')}">
-                                <p th:case="false" class="registrationDescription"></p>
-                                <p th:case="true" class="errorText" th:errors="*{matchingPassword}"></p>
-                            </th:block>
-                        </div>
-                        <div class="form-group">
-                            <!--<label for="email">Must be 8 to 20 characters</label>-->
-                            <input id="email" type="text" th:field="*{email}" class="form-control"
-                                   placeholder="Email address"/>
-                            <th:block th:switch="${#fields.hasErrors('email')}">
-                                <p th:case="false" class="registrationDescription">Must be a valid email address</p>
-                                <p th:case="true" class="errorText" th:errors="*{email}"></p>
-                            </th:block>
-                        </div>
-                        <div class="form-group">
-                            <!--<label for="matchingEmail">Must be 8 to 20 characters</label>-->
-                            <input id="matchingEmail" type="text" th:field="*{matchingEmail}" class="form-control"
-                                   placeholder="Enter email address again"/>
-                            <th:block th:switch="${#fields.hasErrors('matchingEmail')}">
-                                <p th:case="false" class="registrationDescription">Must contain 8 to 20 characters</p>
-                                <p th:case="true" class="errorText" th:errors="*{matchingEmail}"></p>
+                            <th:block th:if="${#fields.hasGlobalErrors()}">
+                                <p class = "errorText" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
                             </th:block>
                         </div>
                         <div class="form-group">

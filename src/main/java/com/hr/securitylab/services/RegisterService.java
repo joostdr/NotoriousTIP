@@ -20,7 +20,6 @@ public class RegisterService {
     public void createNewAccount(NewUser newUser){
         User user = new User();
         user.setUsername(newUser.getUsername());
-        user.setEmail(newUser.getEmail());
         user.setPassword(encryptPassword(newUser.getPassword()));
         user.setCreated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);

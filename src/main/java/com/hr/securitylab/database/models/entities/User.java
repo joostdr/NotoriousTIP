@@ -29,9 +29,6 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "created_at")
     private Date created_at;
 
@@ -44,13 +41,12 @@ public class User {
     public User() {
     }
 
-    public User(int id, Set<Product> products, Set<Role> roles, String username, String password, String email, Date created_at, Date updated_at, Date deleted_at) {
+    public User(int id, Set<Product> products, Set<Role> roles, String username, String password, Date created_at, Date updated_at, Date deleted_at) {
         this.id = id;
         this.products = products;
         this.roles = roles;
         this.username = username;
         this.password = password;
-        this.email = email;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -118,13 +114,5 @@ public class User {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
