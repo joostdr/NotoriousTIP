@@ -1,8 +1,5 @@
 package com.hr.securitylab.database.models.dao;
 
-import com.hr.securitylab.database.models.entities.User;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

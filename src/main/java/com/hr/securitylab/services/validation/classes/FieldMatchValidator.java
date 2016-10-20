@@ -1,7 +1,7 @@
 package com.hr.securitylab.services.validation.classes;
-import org.apache.commons.beanutils.BeanUtils;
 
 import com.hr.securitylab.services.validation.annotations.FieldMatch;
+import org.apache.commons.beanutils.BeanUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

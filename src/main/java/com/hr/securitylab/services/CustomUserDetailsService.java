@@ -1,8 +1,8 @@
 package com.hr.securitylab.services;
 
 import com.hr.securitylab.database.models.dao.user.UserService;
-import com.hr.securitylab.database.models.entities.User;
 import com.hr.securitylab.database.models.entities.Role;
+import com.hr.securitylab.database.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

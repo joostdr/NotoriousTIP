@@ -3,7 +3,6 @@ package com.hr.securitylab.services;
 import com.hr.securitylab.database.models.DatabaseFactory;
 import com.hr.securitylab.database.models.entities.ResetPassword;
 import com.hr.securitylab.database.models.entities.User;
-import org.hibernate.boot.model.relational.Database;
 
 import java.util.Date;
 

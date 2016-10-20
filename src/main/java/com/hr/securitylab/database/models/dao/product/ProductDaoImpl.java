@@ -1,7 +1,6 @@
 package com.hr.securitylab.database.models.dao.product;
 
 import com.hr.securitylab.database.models.entities.Product;
-import com.hr.securitylab.database.models.entities.User;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
