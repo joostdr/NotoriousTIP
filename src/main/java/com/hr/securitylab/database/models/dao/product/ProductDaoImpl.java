@@ -20,22 +20,15 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public boolean checkIfProductCodeExists(String productCode) {
-        String hql = "FROM Product p where p.productcode =:productcode";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("productcode", productCode);
-        List<Product> products= new ArrayList<Product>();
-        Optional<Product> result = Optional.ofNullable((Product) query.uniqueResult());
-        return result.isPresent();
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Product.class).add(Restrictions.like("productcode",productCode));
+        return (Optional.ofNullable((Product) criteria.uniqueResult())).isPresent();
     }
 
     @Override
     public boolean checkIfProductCodeIsInUse(String productCode) {
-        String hql = "FROM Product p where p.productcode =:productcode AND p.activated = true";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("productcode", productCode);
-        List<Product> products= new ArrayList<Product>();
-        Optional<Product> result = Optional.ofNullable((Product) query.uniqueResult());
-        return result.isPresent();
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Product.class).add(Restrictions.like("productcode",productCode));
+        Optional<Product> result = Optional.ofNullable((Product) criteria.uniqueResult());
+        return result.isPresent() && result.get().isActivated();
     }
 
     @Override

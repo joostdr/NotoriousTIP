@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = ProductCodeNotInUseValidator.class)
 @Documented
 public @interface ProductCodeNotInUse {
-    String message() default "Productcode is already in use";
+    String message() default "Productcode already in use";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

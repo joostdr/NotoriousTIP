@@ -13,7 +13,7 @@ public class ResetService {
 
     public void updatePassword(ResetPassword resetPassword){
         User user = DatabaseFactory.getProductService().findProductByProductCode(resetPassword.getProductCode()).getUser();
-        user.setPassword(resetPassword.getNewPassword());
+        user.setPassword(PasswordService.encryptPassword(resetPassword.getNewPassword()));
         user.setUpdated_at(new Date());
         DatabaseFactory.getUserService().saveOrUpdate(user);
     }

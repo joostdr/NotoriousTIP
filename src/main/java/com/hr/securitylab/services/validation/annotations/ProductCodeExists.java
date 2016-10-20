@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = ProductCodeExistsValidator.class)
 @Documented
 public @interface ProductCodeExists {
-    String message() default "Productcode doesn't exist";
+    String message() default "Invalid productcode";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
