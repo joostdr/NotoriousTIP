@@ -3,6 +3,7 @@ package com.hr.securitylab.database.models.entities;
 import com.hr.securitylab.services.validation.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -14,13 +15,13 @@ import javax.validation.constraints.Size;
 })
 public class NewUser {
 
-    @Size(min=8, max=20)
+    @Size(min=8, max=32)
     @UsernameNotInUse
     @NotEmpty
     @NotNull
     private String username;
 
-    @Size(min=8, max=20)
+    @Size(min=8, max=32)
     @NotEmpty
     @NotNull
     @ValidPassword

@@ -1,4 +1,4 @@
-package com.hr.securitylab.services;
+package com.hr.securitylab.config;
 
 import com.hr.securitylab.database.models.dao.user.UserService;
 import com.hr.securitylab.database.models.entities.Role;

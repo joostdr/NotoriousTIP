@@ -20,10 +20,10 @@ public class Product {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "productcode")
+    @Column(name = "productcode", length = 16)
     private String productcode;
 
-    @Column(name = "pin")
+    @Column(name = "pin", length = 6)
     private String pin;
 
     @Column(name = "encryption_key")

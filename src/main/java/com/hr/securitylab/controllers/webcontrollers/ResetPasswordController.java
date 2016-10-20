@@ -19,7 +19,7 @@ import javax.validation.Valid;
 @RequestMapping("/resetpassword")
 public class ResetPasswordController{
     @RequestMapping(method = RequestMethod.GET)
-    public String greeting(Model model) {
+    public String returnView(Model model) {
         model.addAttribute("resetpassword", new ResetPassword());
         return "resetpassword";
     }

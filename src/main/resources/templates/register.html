@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <!--<label for="username">Must be 8 to 20 characters</label>-->
                             <input id="username" type="text" th:field="*{username}" class="form-control"
-                                   placeholder="Username"/>
+                                   placeholder="Username"  maxlength="32"/>
                             <th:block th:switch="${#fields.hasErrors('username')}">
                                 <p th:case="false" class="registrationDescription">Must contain 8 to 20 characters</p>
                                 <p th:case="true" class="errorText" th:errors="*{username}"></p>
@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <!--<label for="password">Must be 8 to 20 characters, contain 1 uppercase character, 1 number</label>-->
                             <input id="password" type="password" th:field="*{password}" class="form-control"
-                                   placeholder="Password"/>
+                                   placeholder="Password"  maxlength="32"/>
                             <th:block th:switch="${#fields.hasErrors('password')}">
                                 <p th:case="false" class="registrationDescription">Must contain 8 to 20 characters, 1
                                     uppercase character, 1 number, 1 special character</p>
@@ -46,7 +46,7 @@
                         <div class="form-group">
                             <!--<label for="matchingPassword">Must be 8 to 20 characters</label>-->
                             <input id="matchingPassword" type="password" th:field="*{matchingPassword}"
-                                   class="form-control" placeholder="Enter password again"/>
+                                   class="form-control" placeholder="Enter password again"  maxlength="32"/>
                             <th:block th:if="${#fields.hasGlobalErrors()}">
                                 <p class = "errorText" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
                             </th:block>

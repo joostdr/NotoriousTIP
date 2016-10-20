@@ -20,13 +20,13 @@ import javax.validation.Valid;
 public class RegisterController{
 
     @RequestMapping(method = RequestMethod.GET)
-    public String greeting(Model model) {
+    public String returnView(Model model) {
         model.addAttribute("newuser", new NewUser());
         return "register";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String showGreeting(@ModelAttribute("newuser") @Valid NewUser newUser, Errors errors) {
+    public String registerUser(@ModelAttribute("newuser") @Valid NewUser newUser, Errors errors) {
         RegisterService registerService = new RegisterService();
         if(!errors.hasErrors()){
             registerService.createNewAccount(newUser);

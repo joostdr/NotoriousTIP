@@ -23,10 +23,10 @@ public class User {
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    @Column(name = "username")
+    @Column(name = "username", length = 32)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", length = 32)
     private String password;
 
     @Column(name = "created_at")

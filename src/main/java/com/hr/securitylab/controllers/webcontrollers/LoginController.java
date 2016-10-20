@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/login")
 public class LoginController {
     @RequestMapping(method = RequestMethod.GET)
-    public String returnView(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
+    public String returnView(Model model) {
         model.addAttribute("login", new User());
         return "login";
     }
