@@ -3,7 +3,10 @@ package com.hr.securitylab.config;
 import com.hr.securitylab.database.models.dao.user.UserService;
 import com.hr.securitylab.database.models.entities.Role;
 import com.hr.securitylab.database.models.entities.User;
+import com.sun.deploy.security.BlockedException;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,8 +27,18 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LoginAttemptService loginAttemptService;
+
+    @Autowired
+    private HttpServletRequest request;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        String ip = getClientIP();
+        if(loginAttemptService.isBlocked(ip)){
+            throw new RuntimeException("IP is blocked");
+        }
         try{
             User user = userService.findByUsername(username);
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
@@ -42,5 +55,13 @@ public class CustomUserDetailsService implements UserDetailsService {
             authorities.add(grantedAuthority);
         }
         return authorities;
+    }
+
+    private String getClientIP() {
+        String xfHeader = request.getHeader("X-Forwarded-For");
+        if (xfHeader == null){
+            return request.getRemoteAddr();
+        }
+        return xfHeader.split(",")[0];
     }
 }
