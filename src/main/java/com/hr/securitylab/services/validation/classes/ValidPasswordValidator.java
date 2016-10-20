@@ -29,7 +29,7 @@ public class ValidPasswordValidator implements ConstraintValidator<ValidPassword
         }
         context.disableDefaultConstraintViolation();
         context.buildConstraintViolationWithTemplate(
-                Joiner.on("n").join(validator.getMessages(result)))
+                Joiner.on(" ").join(validator.getMessages(result)))
                 .addConstraintViolation();
         return false;
     }

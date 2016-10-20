@@ -29,17 +29,19 @@ public class NewUser {
     private String matchingPassword;
 
     @NotEmpty
+    @ProductCodeExists
+    @ProductCodeNotInUse
     @NotNull
-    private String productKey;
+    private String productCode;
 
     public NewUser() {
     }
 
-    public NewUser(String username, String password, String matchingPassword, String productKey) {
+    public NewUser(String username, String password, String matchingPassword, String productCode) {
         this.username = username;
         this.password = password;
         this.matchingPassword = matchingPassword;
-        this.productKey = productKey;
+        this.productCode = productCode;
     }
 
     public String getUsername() {
@@ -66,11 +68,11 @@ public class NewUser {
         this.matchingPassword = matchingPassword;
     }
 
-    public String getProductKey() {
-        return productKey;
+    public String getProductCode() {
+        return productCode;
     }
 
-    public void setProductKey(String productKey) {
-        this.productKey = productKey;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 }

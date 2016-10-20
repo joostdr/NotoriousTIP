@@ -1,7 +1,9 @@
 package com.hr.securitylab.database.models;
 
-import com.hr.securitylab.database.models.dao.UserService;
-import com.hr.securitylab.database.models.dao.UserServiceImpl;
+import com.hr.securitylab.database.models.dao.product.ProductService;
+import com.hr.securitylab.database.models.dao.product.ProductServiceImpl;
+import com.hr.securitylab.database.models.dao.user.UserService;
+import com.hr.securitylab.database.models.dao.user.UserServiceImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -21,5 +23,9 @@ public class DatabaseFactory {
 
     public static UserService getUserService(){
         return (UserServiceImpl) context.getBean("userServiceImpl");
+    }
+
+    public static ProductService getProductService(){
+        return (ProductServiceImpl) context.getBean("productServiceImpl");
     }
 }

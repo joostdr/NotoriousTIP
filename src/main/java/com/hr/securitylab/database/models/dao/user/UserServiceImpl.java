@@ -1,4 +1,4 @@
-package com.hr.securitylab.database.models.dao;
+package com.hr.securitylab.database.models.dao.user;
 
 import com.hr.securitylab.database.models.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;

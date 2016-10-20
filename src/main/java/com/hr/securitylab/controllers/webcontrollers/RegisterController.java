@@ -30,11 +30,9 @@ public class RegisterController{
     @RequestMapping(method = RequestMethod.POST)
     public String showGreeting(@ModelAttribute("newuser") @Valid NewUser newUser, Errors errors) {
         RegisterService registerService = new RegisterService();
-        if(errors.hasErrors()){
-            registerService.showErrors(errors);
-        }
-        else{
+        if(!errors.hasErrors()){
             registerService.createNewAccount(newUser);
+            return "redirect:/login.html";
         }
         return "register";
     }

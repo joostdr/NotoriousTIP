@@ -23,8 +23,14 @@ public class Product {
     @Column(name = "productcode")
     private String productcode;
 
+    @Column(name = "pin")
+    private String pin;
+
     @Column(name = "encryption_key")
     private String encryption_key;
+
+    @Column(name = "activated")
+    private boolean activated;
 
     @Column(name = "created_at")
     private Date created_at;
@@ -38,10 +44,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(User user, String productcode, String encryption_key, Date created_at, Date updated_at, Date deleted_at) {
+    public Product(int id, User user, String productcode, String pin, String encryption_key, boolean activated, Date created_at, Date updated_at, Date deleted_at) {
+        this.id = id;
         this.user = user;
         this.productcode = productcode;
+        this.pin = pin;
         this.encryption_key = encryption_key;
+        this.activated = activated;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -101,5 +110,21 @@ public class Product {
 
     public void setDeleted_at(Date deleted_at) {
         this.deleted_at = deleted_at;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 }

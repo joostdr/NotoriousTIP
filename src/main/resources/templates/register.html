@@ -52,13 +52,13 @@
                             </th:block>
                         </div>
                         <div class="form-group">
-                            <!--<label for="productKey">Product key can be found on the box</label>-->
-                            <input id="productKey" type="text" th:field="*{productKey}" class="form-control"
-                                   placeholder="Product key"/>
-                            <th:block th:switch="${#fields.hasErrors('productKey')}">
+                            <!--<label for="productCode">Product key can be found on the box</label>-->
+                            <input id="productCode" type="text" th:field="*{productCode}" class="form-control"
+                                   placeholder="Product key" maxlength="16"/>
+                            <th:block th:switch="${#fields.hasErrors('productCode')}">
                                 <p th:case="false" class="registrationDescription">Can be found on the box of the
                                     product</p>
-                                <p th:case="true" class="errorText" th:errors="*{productKey}"></p>
+                                <p th:case="true" class="errorText" th:errors="*{productCode}"></p>
                             </th:block>
                         </div>
                         <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Send"/>
