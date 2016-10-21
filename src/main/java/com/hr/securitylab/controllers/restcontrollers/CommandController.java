@@ -15,13 +15,13 @@ public class CommandController {
     @RequestMapping(value = "/on", method = RequestMethod.GET)
     public void turnOn() throws Exception{
         HttpService http = new HttpService();
-        http.turnOn();
+        http.httpOn();
     }
 
     @RequestMapping(value = "/off", method = RequestMethod.GET)
     public void turnOff() throws Exception{
         HttpService http = new HttpService();
-        http.turnOff();
+        http.httpOff();
     }
 
 }
