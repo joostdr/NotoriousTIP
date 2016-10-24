@@ -11,16 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/test")
 public class CommandController {
+    private HttpService http;
+    public CommandController() {
+        this.http = new HttpService();
+    }
 
     @RequestMapping(value = "/on", method = RequestMethod.GET)
     public void turnOn() throws Exception{
-        HttpService http = new HttpService();
         http.httpOn();
     }
 
     @RequestMapping(value = "/off", method = RequestMethod.GET)
     public void turnOff() throws Exception{
-        HttpService http = new HttpService();
         http.httpOff();
     }
 

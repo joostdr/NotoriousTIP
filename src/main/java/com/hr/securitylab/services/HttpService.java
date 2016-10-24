@@ -18,65 +18,44 @@ import java.io.IOException;
 
 public class HttpService {
 
-    private HttpClient httpClient;
+    private static final HttpClient httpClient = HttpClientBuilder.create().build();
+    private static final HttpClientContext context = HttpClientContext.create();
 
-    public HttpService() {
-            this.httpClient = HttpClientBuilder.create().build();
+    static{
+        prepare();
+    }
+
+    private static void prepare() {
+        System.out.println("Preparing ESP............................................................");
+        HttpHost targetHost = new HttpHost("192.168.111.1", 8080, "http");
+        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        credsProvider.setCredentials(AuthScope.ANY,
+                new UsernamePasswordCredentials("datboi", "CC4d96"));
+        AuthCache authCache = new BasicAuthCache();
+        authCache.put(targetHost, new BasicScheme());
+        context.setCredentialsProvider(credsProvider);
+        context.setAuthCache(authCache);
+        System.out.println("Context set");
     }
 
     public void httpOn() throws IOException {
-        System.out.println("Preparing ESP............................................................");
-        HttpHost targetHost = new HttpHost("192.168.111.1", 8080, "http");
-        CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials(AuthScope.ANY,
-                new UsernamePasswordCredentials("datboi", "CC4d96"));
-
-        AuthCache authCache = new BasicAuthCache();
-        authCache.put(targetHost, new BasicScheme());
-
-        // Add AuthCache to the execution context
-        final HttpClientContext context = HttpClientContext.create();
-        context.setCredentialsProvider(credsProvider);
-        context.setAuthCache(authCache);
-        System.out.println("Context set");
-
-        try {
-            System.out.println("Executing get..........................................................");
-            HttpResponse response = httpClient.execute(new HttpGet("http://192.168.111.1:8080/mode/2/o"), context);
-            int statusCode = response.getStatusLine().getStatusCode();
-            System.out.println(statusCode);
-            System.out.println("Executing get #2..........................................................");
-            HttpResponse response2 = httpClient.execute(new HttpGet("http://192.168.111.1:8080/digital/2/1"), context);
-            int statusCode2 = response2.getStatusLine().getStatusCode();
-            System.out.println(statusCode2);
-        } catch (IOException e) {
-            System.out.println("Oops");
-        }
+        this.executeGet("http://requestb.in/13wbs111", "ON");
     }
 
     public void httpOff() throws IOException {
-        System.out.println("Preparing ESP............................................................");
-        HttpHost targetHost = new HttpHost("192.168.111.1", 8080, "http");
-        CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials(AuthScope.ANY,
-                new UsernamePasswordCredentials("datboi", "CC4d96"));
+        this.executeGet("http://requestb.in/13wbs111", "OFF");
+    }
 
-        AuthCache authCache = new BasicAuthCache();
-        authCache.put(targetHost, new BasicScheme());
-
-        // Add AuthCache to the execution context
-        final HttpClientContext context = HttpClientContext.create();
-        context.setCredentialsProvider(credsProvider);
-        context.setAuthCache(authCache);
-        System.out.println("Context set");
-
-        try {
-            System.out.println("Executing get #2..........................................................");
-            HttpResponse response2 = httpClient.execute(new HttpGet("http://192.168.111.1:8080/digital/2/0"), context);
-            int statusCode2 = response2.getStatusLine().getStatusCode();
-            System.out.println(statusCode2);
-        } catch (IOException e) {
-            System.out.println("Oops");
+    private void executeGet(String url, String action) {
+        {
+            System.out.println("Executing get on url: " + url +", action: "+ action);
+            try {
+                HttpResponse response = httpClient.execute(new HttpGet(url), context);
+                int statusCode = response.getStatusLine().getStatusCode();
+                System.out.println("Response code: " + statusCode);
+            } catch (IOException e) {
+                System.out.println("Oops!");
+            }
         }
     }
 }
