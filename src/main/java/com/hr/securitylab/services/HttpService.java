@@ -38,23 +38,22 @@ public class HttpService {
         System.out.println("Context set");
     }
 
-    public void httpOn() throws IOException {
-        this.executeGet("http://requestb.in/13wbs111", "ON");
+    public String httpOn() throws IOException {
+        return this.executeGet("http://asdasadsdasdasdasdasdd.com", "ON");
     }
 
-    public void httpOff() throws IOException {
-        this.executeGet("http://requestb.in/13wbs111", "OFF");
+    public String httpOff() throws IOException {
+        return this.executeGet("http://requestb.in/13wbs111", "OFF");
     }
 
-    private void executeGet(String url, String action) {
+    private String executeGet(String url, String action) {
         {
             System.out.println("Executing get on url: " + url +", action: "+ action);
             try {
                 HttpResponse response = httpClient.execute(new HttpGet(url), context);
-                int statusCode = response.getStatusLine().getStatusCode();
-                System.out.println("Response code: " + statusCode);
+                return Integer.toString(response.getStatusLine().getStatusCode());
             } catch (IOException e) {
-                System.out.println("Oops!");
+                return "403";
             }
         }
     }

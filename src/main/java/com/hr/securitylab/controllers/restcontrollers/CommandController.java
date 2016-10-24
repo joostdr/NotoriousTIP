@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by joost on 4-10-2016.
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/command")
 public class CommandController {
     private HttpService http;
     public CommandController() {
@@ -17,13 +17,13 @@ public class CommandController {
     }
 
     @RequestMapping(value = "/on", method = RequestMethod.GET)
-    public void turnOn() throws Exception{
-        http.httpOn();
+    public String turnOn() throws Exception{
+        return http.httpOn();
     }
 
     @RequestMapping(value = "/off", method = RequestMethod.GET)
-    public void turnOff() throws Exception{
-        http.httpOff();
+    public String turnOff() throws Exception{
+        return http.httpOff();
     }
 
 }

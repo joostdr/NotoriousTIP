@@ -35,7 +35,7 @@
             </div>
             <div class="row">
                 <div class="col-md-2"><b>Status</b></div>
-                <div class="col-md-2">ON</div>
+                <div class="col-md-2" id = "ajaxResult">OFF</div>
             </div>
             <div class="row">
                 <div class="col-md-2"><b>Time on</b></div>
@@ -45,22 +45,56 @@
                 <div class="col-md-12 pull-center"><input type="checkbox" id="ayy" data-toggle="toggle"
                                                           data-width="100"/></div>
             </div>
+            <div class="col-md-12 pull-center" id = "loading" style="display: none;"><p>Loading</p></div>
+            <div class="col-md-12 pull-center" id = "ajaxError"></div>
+            <!--<img th:href="@{../assets/loading.gif}"> </img>-->
         </div>
     </div>
 </section>
 </body>
 
 <script>
-    $(function () {
+
+    /*$(document).ajaxStart(function() {
+        $("#loading").show();
+        console.log("SHOW");
+    });
+
+    $(document).ajaxStop(function() {
+        $("#loading").hide();
+        console.log("HIDE");
+    });*/
+
+    $(function () { //function which handles the on/off button
         $('#ayy').change(function () {
-            if($(this).prop('checked')){
+            if($(this).prop('checked')){ //if ON > do POST request to Java controller which makes HTTP calls to the vibrator
+                $("#loading").show();
                 $.ajax({
-                    url: "test/on",
+                    url: "command/on",
+                }).done(function(data){
+                    $("#loading").hide();
+                    $("#ajaxError").text(data);
+                    /*switch(data){
+                        case "200": $("#ajaxResult").text("ON");
+                            break;
+                        case "403": $("#ajaxError").text("Something went wrong");
+                            break;
+                    }*/   //return response code
                 });
             }
-            else{
+            else{ //if OFF > do same as above
+                $("#loading").show();
                 $.ajax({
-                    url: "test/off",
+                    url: "command/off",
+                }).done(function(data){
+                    $("#loading").hide();//alert(data);
+                    $("#ajaxError").text(data);
+                    /*switch(data){
+                        case "200": $("#ajaxResult").text("OFF");
+                            break;
+                        case "403": $("#ajaxError").text("Something went wrong");
+                            break;
+                    }*/
                 });
             }
         })
