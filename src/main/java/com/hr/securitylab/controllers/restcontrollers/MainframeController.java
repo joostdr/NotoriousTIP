@@ -27,9 +27,21 @@ public class MainframeController {
         return http.httpOff();
     }
 
-    @RequestMapping(value = "/authenticate", method = RequestMethod.GET)
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String storeIP(HttpServletRequest result){
-        return result.getRemoteAddr();
+        return test1(result);
+    }
+
+    @RequestMapping(value = "/test1", method = RequestMethod.GET)
+    public String test1(HttpServletRequest result){
+        String header = result.getHeader("Test");
+        header = header + " that fellow";
+        return header;
+    }
+
+    @RequestMapping(value = "/test2", method = RequestMethod.GET)
+    public String test2(HttpServletRequest result){
+        return "test2";
     }
 
 }

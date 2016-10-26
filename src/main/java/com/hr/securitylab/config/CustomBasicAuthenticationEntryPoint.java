@@ -29,4 +29,6 @@ public class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntr
         setRealmName("MY_TEST_REALM");
         super.afterPropertiesSet();
     }
+
+
 }

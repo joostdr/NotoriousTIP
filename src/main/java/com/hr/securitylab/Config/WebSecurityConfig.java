@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 
@@ -28,13 +29,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/resetpassword", "/command/authenticate").permitAll()
+                .antMatchers("/login", "/register", "/resetpassword", "/command/authenticate", "/command/test")
+                .permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
-                .and()
+                /*.and()
                 .httpBasic()
                 .realmName(REALM)
-                .authenticationEntryPoint(getBasicAuthEntryPoint())
+                .authenticationEntryPoint(getBasicAuthEntryPoint())*/
                 .and()
                 .formLogin()
                 .loginPage("/login")

@@ -24,7 +24,7 @@
     <div class="container">
         <div class="jumbotron">
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
+                <div class="col-md-2 pull-right"><input type="submit" class="btn btn-custom" value="Sign Out"/></div>
             </form>
             <div class="row">
                 <div class="col-md-2"><h2>Information</h2></div>
@@ -45,7 +45,7 @@
                 <div class="col-md-12 pull-center"><input type="checkbox" id="ayy" data-toggle="toggle"
                                                           data-width="100"/></div>
             </div>
-            <div class="col-md-12 pull-center" id = "loading" style="display: none;"><!--<img th:href="@{../assets/loading.gif}"> </img>--><p>Loading</p></div>
+            <div class="col-md-12 pull-center" id = "loading" style="display: none;"><!--<img th:href="@{../assets/loading.gif}"> </img>--><p><Loading></Loading></p></div>
             <div class="col-md-12 pull-center" id = "ajaxError"></div>
             <!---->
         </div>
