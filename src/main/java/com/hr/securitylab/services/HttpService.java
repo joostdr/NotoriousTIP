@@ -39,11 +39,11 @@ public class HttpService {
     }
 
     public String httpOn() throws IOException {
-        return this.executeGet("http://asdasadsdasdasdasdasdd.com", "ON");
+        return this.executeGet("http://192.168.111.1:8080/digital/2/1", "ON");
     }
 
     public String httpOff() throws IOException {
-        return this.executeGet("http://requestb.in/13wbs111", "OFF");
+        return this.executeGet("http://192.168.111.1:8080/digital/2/0", "OFF");
     }
 
     private String executeGet(String url, String action) {
@@ -53,7 +53,7 @@ public class HttpService {
                 HttpResponse response = httpClient.execute(new HttpGet(url), context);
                 return Integer.toString(response.getStatusLine().getStatusCode());
             } catch (IOException e) {
-                return "403";
+                return "500";
             }
         }
     }

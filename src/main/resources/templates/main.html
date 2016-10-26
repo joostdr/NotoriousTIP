@@ -45,9 +45,9 @@
                 <div class="col-md-12 pull-center"><input type="checkbox" id="ayy" data-toggle="toggle"
                                                           data-width="100"/></div>
             </div>
-            <div class="col-md-12 pull-center" id = "loading" style="display: none;"><p>Loading</p></div>
+            <div class="col-md-12 pull-center" id = "loading" style="display: none;"><!--<img th:href="@{../assets/loading.gif}"> </img>--><p>Loading</p></div>
             <div class="col-md-12 pull-center" id = "ajaxError"></div>
-            <!--<img th:href="@{../assets/loading.gif}"> </img>-->
+            <!---->
         </div>
     </div>
 </section>
@@ -74,12 +74,12 @@
                 }).done(function(data){
                     $("#loading").hide();
                     $("#ajaxError").text(data);
-                    /*switch(data){
+                    switch(data){
                         case "200": $("#ajaxResult").text("ON");
                             break;
-                        case "403": $("#ajaxError").text("Something went wrong");
+                        case "500": $("#ajaxError").text("Something went wrong");
                             break;
-                    }*/   //return response code
+                    }   //return response code
                 });
             }
             else{ //if OFF > do same as above
@@ -89,12 +89,12 @@
                 }).done(function(data){
                     $("#loading").hide();//alert(data);
                     $("#ajaxError").text(data);
-                    /*switch(data){
+                    switch(data){
                         case "200": $("#ajaxResult").text("OFF");
                             break;
-                        case "403": $("#ajaxError").text("Something went wrong");
+                        case "500": $("#ajaxError").text("Something went wrong");
                             break;
-                    }*/
+                    }
                 });
             }
         })

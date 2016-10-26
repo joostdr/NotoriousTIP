@@ -16,6 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static String REALM="MY_TEST_REALM";
+
     @Autowired
     @Qualifier("userDetailsService")
     UserDetailsService userDetailsService;
@@ -23,10 +25,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf()
+                .disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/resetpassword").permitAll()
+                .antMatchers("/login", "/register", "/resetpassword", "/command/authenticate").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
+                .and()
+                .httpBasic()
+                .realmName(REALM)
+                .authenticationEntryPoint(getBasicAuthEntryPoint())
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -56,5 +64,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
+    }
+
+    @Bean
+    public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){
+        return new CustomBasicAuthenticationEntryPoint();
     }
 }
