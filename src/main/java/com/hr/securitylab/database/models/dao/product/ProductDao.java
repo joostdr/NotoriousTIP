@@ -12,5 +12,7 @@ public interface ProductDao {
 
     boolean checkIfPinIsValid(String productCode, String pin);
 
+    Product findById(String productId);
+
     void saveOrUpdate(Product product);
 }

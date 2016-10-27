@@ -33,10 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
-                /*.and()
+                .and()
                 .httpBasic()
                 .realmName(REALM)
-                .authenticationEntryPoint(getBasicAuthEntryPoint())*/
+                .authenticationEntryPoint(getBasicAuthEntryPoint())
                 .and()
                 .formLogin()
                 .loginPage("/login")

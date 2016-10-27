@@ -32,6 +32,9 @@ public class Product {
     @Column(name = "activated")
     private boolean activated;
 
+    @Column(name = "ip")
+    private String ip;
+
     @Column(name = "created_at")
     private Date created_at;
 
@@ -44,13 +47,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(int id, User user, String productcode, String pin, String encryption_key, boolean activated, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
+    public Product(User user, String productcode, String pin, String encryption_key, boolean activated, String ip, Date created_at, Date updated_at, Date deleted_at) {
         this.user = user;
         this.productcode = productcode;
         this.pin = pin;
         this.encryption_key = encryption_key;
         this.activated = activated;
+        this.ip = ip;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.deleted_at = deleted_at;
@@ -126,5 +129,13 @@ public class Product {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 }

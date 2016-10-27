@@ -13,4 +13,6 @@ public interface ProductService {
     boolean checkIfPinIsValid(String productCode, String pin);
 
     void saveOrUpdate(Product product);
+
+    Product findById(String productId);
 }

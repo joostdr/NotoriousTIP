@@ -45,6 +45,12 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public Product findById(String productId) {
+        Optional<Product> result = Optional.ofNullable(sessionFactory.getCurrentSession().get(Product.class, Integer.parseInt(productId)));
+        return result.isPresent() ? result.get() : null;
+    }
+
+    @Override
     public void saveOrUpdate(Product product) {
         sessionFactory.getCurrentSession().saveOrUpdate(product);
     }

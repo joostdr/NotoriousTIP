@@ -48,4 +48,10 @@ public class ProductServiceImpl implements ProductService{
     public void saveOrUpdate(Product product) {
         productDao.saveOrUpdate(product);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public Product findById(String productId) {
+        return productDao.findById(productId);
+    }
 }
