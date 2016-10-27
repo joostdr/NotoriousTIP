@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by joost on 4-10-2016.
  */
 @RestController
-@RequestMapping("/command")
 public class MainframeController {
     private HttpService http;
     private EncryptionService encryptionService;
@@ -31,19 +30,25 @@ public class MainframeController {
         return http.httpOff();
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String storeIP(HttpServletRequest result){
-        return test1(result);
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public String test(HttpServletRequest request) throws Exception{
+        return request.getHeader("Authorization");
     }
 
-    @RequestMapping(value = "/test1", method = RequestMethod.GET)
-    public String test1(HttpServletRequest result){
-        String header = result.getHeader("Test");
-        header = header + " that fellow";
-        return header;
+    @RequestMapping(value = "/api/decrypt", method = RequestMethod.POST)
+    public String decryptCiphertext(HttpServletRequest request) throws Exception{
+        /*switch(encryptionService.decrypt(request.getHeader("action"))){
+            case "on" : turnOn();
+                break;
+
+        }encryptionService.decrypt(result.getHeader("Authorize"));*/
+        //return test1(result);
+        String headers1 = request.getHeader("Authorization");
+        System.out.println(encryptionService.decrypt("AnYTn3q/xU5uT2UTHZ7b6Q=="));
+        return test(request);
     }
 
-    @RequestMapping(value = "/report", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/report", method = RequestMethod.POST)
     public Response retrieveDeviceEncryptionKey(HttpServletRequest request){
         if(encryptionService.checkIfProductIdIsValid(request.getHeader("productid"))){
             return encryptionService.getKey(request);
@@ -51,11 +56,6 @@ public class MainframeController {
         else{
             return new Response(400, "productid not valid");
         }
-    }
-
-    @RequestMapping(value = "/test2", method = RequestMethod.GET)
-    public String test2(HttpServletRequest result){
-        return "test2";
     }
 
 }

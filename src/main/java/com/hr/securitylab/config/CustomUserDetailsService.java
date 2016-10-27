@@ -35,7 +35,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String ip = getClientIP();
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-        System.out.println(request.getHeader("Authorization"));
         /*if(loginAttemptService.isBlocked(ip)){
             throw new RuntimeException("IP is blocked");
         }*/

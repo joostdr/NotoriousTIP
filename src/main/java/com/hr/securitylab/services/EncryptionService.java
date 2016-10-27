@@ -4,9 +4,11 @@ import com.hr.securitylab.database.models.DatabaseFactory;
 import com.hr.securitylab.database.models.entities.Product;
 import com.hr.securitylab.database.models.entities.Response;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.cryptacular.codec.Base64Decoder;
 
-import javax.crypto.SecretKey;
+import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
@@ -30,16 +32,32 @@ public class EncryptionService {
         String keyString = product.getEncryption_key();
         if (keyString == null) return new Response(400, "ID does not exist");
         saveIp(request.getRemoteAddr(), product);
-        byte[] encodedKey = Base64.getDecoder().decode(keyString);
+        byte[] encodedKey = keyString.getBytes();
         key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
         return new Response(200, "Key saved");
+    }
+
+    public String decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, key);
+        String decryptedString = new String(cipher.doFinal(Base64.getDecoder().decode(cipherText)));
+        return decryptedString;
+    }
+
+    public String encrypt(String plainText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+        byte[] encrypted = cipher.doFinal(plainText.getBytes());
+        String encryptedString = Base64.getEncoder().encodeToString(encrypted);
+        System.out.println(encryptedString);
+        return encryptedString;
     }
 
     /**
      * Saves the devices ip in the database
      */
 
-    public void saveIp(String remoteAddress, Product product){
+    private void saveIp(String remoteAddress, Product product){
         product.setIp(remoteAddress);
         DatabaseFactory.getProductService().saveOrUpdate(product);
     }
@@ -51,10 +69,9 @@ public class EncryptionService {
      * @return
      */
     public boolean checkIfProductIdIsValid(String productId){
-        //return productId.contains("[0-9]+");
-        boolean result = productId.matches("[0-9]+");
-        System.out.println(result);
-        return result;
+        return productId.matches("[0-9]+");
     }
+
+
 
 }
