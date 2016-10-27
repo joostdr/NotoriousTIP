@@ -4,10 +4,15 @@ import com.hr.securitylab.database.models.DatabaseFactory;
 import com.hr.securitylab.database.models.entities.Product;
 import com.hr.securitylab.database.models.entities.Response;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.apache.commons.codec.binary.Hex;
 import org.cryptacular.codec.Base64Decoder;
+import org.cryptacular.codec.HexEncoder;
 
 import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
@@ -18,7 +23,7 @@ import java.util.Base64;
 //TODO make sure request.getHeader("productid") is an integer
 public class EncryptionService {
 
-    private SecretKey key;
+    private static SecretKey key;
 
     /**
      * Retrieves encryptionkey from the database for the corresponding device
@@ -37,19 +42,18 @@ public class EncryptionService {
         return new Response(200, "Key saved");
     }
 
-    public String decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public static String decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.DECRYPT_MODE, key);
         String decryptedString = new String(cipher.doFinal(Base64.getDecoder().decode(cipherText)));
         return decryptedString;
     }
 
-    public String encrypt(String plainText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        Cipher cipher = Cipher.getInstance("AES");
+    public static String encrypt(String plainText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
+        Cipher cipher = Cipher.getInstance("AES");///CBC/PKCS5Padding
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] encrypted = cipher.doFinal(plainText.getBytes());
-        String encryptedString = Base64.getEncoder().encodeToString(encrypted);
-        System.out.println(encryptedString);
+        String encryptedString = Hex.encodeHexString(encrypted);
         return encryptedString;
     }
 

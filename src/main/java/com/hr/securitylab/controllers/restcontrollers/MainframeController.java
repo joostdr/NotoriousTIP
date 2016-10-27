@@ -44,7 +44,8 @@ public class MainframeController {
         }encryptionService.decrypt(result.getHeader("Authorize"));*/
         //return test1(result);
         String headers1 = request.getHeader("Authorization");
-        System.out.println(encryptionService.decrypt("AnYTn3q/xU5uT2UTHZ7b6Q=="));
+        //System.out.println(EncryptionService.decrypt("AnYTn3q/xU5uT2UTHZ7b6Q=="));
+        System.out.println(EncryptionService.encrypt("Hi, I'm secret!"));
         return test(request);
     }
 

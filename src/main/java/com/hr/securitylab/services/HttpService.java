@@ -14,7 +14,13 @@ import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 public class HttpService {
 
@@ -38,17 +44,21 @@ public class HttpService {
         System.out.println("Context set");
     }
 
-    public String httpOn() throws IOException {
-        return this.executeGet("http://192.168.111.1:8080/digital/2/1", "ON");
+    public String httpOn() throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        System.out.println("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("1"));
+        System.out.println("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("0"));
+        return this.executeGet("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("1"));
+        //return this.executeGet("http://192.168.111.1:8080/digital/2/1");
     }
 
-    public String httpOff() throws IOException {
-        return this.executeGet("http://192.168.111.1:8080/digital/2/0", "OFF");
+    public String httpOff() throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+        return this.executeGet("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("0"));
+        //return this.executeGet("http://192.168.111.1:8080/digital/2/0");
     }
 
-    private String executeGet(String url, String action) {
+    private String executeGet(String url) {
         {
-            System.out.println("Executing get on url: " + url +", action: "+ action);
+            System.out.println("Executing get on url: " + url + "......................");
             try {
                 HttpResponse response = httpClient.execute(new HttpGet(url), context);
                 return Integer.toString(response.getStatusLine().getStatusCode());
