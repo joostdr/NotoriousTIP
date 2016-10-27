@@ -3,6 +3,7 @@ package com.hr.securitylab.services;
 import com.hr.securitylab.database.models.DatabaseFactory;
 import com.hr.securitylab.database.models.entities.Product;
 import com.hr.securitylab.database.models.entities.Response;
+import com.hr.securitylab.exceptions.KeyNotSetException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.codec.binary.Hex;
 import org.cryptacular.codec.Base64Decoder;
@@ -28,6 +29,7 @@ public class EncryptionService {
     /**
      * Retrieves encryptionkey from the database for the corresponding device
      * Saves the encryptionkey in the variable key
+     *
      * @param request
      * @return
      */
@@ -42,26 +44,27 @@ public class EncryptionService {
         return new Response(200, "Key saved");
     }
 
-    public static String decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public static Response decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, KeyNotSetException, InvalidKeyException {
         Cipher cipher = Cipher.getInstance("AES");
+        if (key == null) throw new KeyNotSetException("Key is not set");
         cipher.init(Cipher.DECRYPT_MODE, key);
         String decryptedString = new String(cipher.doFinal(Base64.getDecoder().decode(cipherText)));
-        return decryptedString;
+        return new Response(200, decryptedString);
     }
 
-    public static String encrypt(String plainText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
+    public static Response encrypt(String plainText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
         Cipher cipher = Cipher.getInstance("AES");///CBC/PKCS5Padding
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] encrypted = cipher.doFinal(plainText.getBytes());
         String encryptedString = Hex.encodeHexString(encrypted);
-        return encryptedString;
+        return new Response(200, encryptedString);
     }
 
     /**
      * Saves the devices ip in the database
      */
 
-    private void saveIp(String remoteAddress, Product product){
+    private void saveIp(String remoteAddress, Product product) {
         product.setIp(remoteAddress);
         DatabaseFactory.getProductService().saveOrUpdate(product);
     }
@@ -69,13 +72,13 @@ public class EncryptionService {
     /**
      * check if the productid contains only numbers
      * productid gets parsed to an int in getEncrpytionKeyByProductId, so if it contains characters of some sort it crashes
+     *
      * @param productId
      * @return
      */
-    public boolean checkIfProductIdIsValid(String productId){
+    public boolean checkIfProductIdIsValid(String productId) {
         return productId.matches("[0-9]+");
     }
-
 
 
 }

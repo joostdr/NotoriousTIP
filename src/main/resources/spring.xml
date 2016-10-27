@@ -16,9 +16,9 @@
 
     <!-- Server DB -->
     <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="url" value="jdbc:mysql://145.24.222.226:3306/securitylab?zeroDateTimeBehavior=convertToNull"/>
-        <property name="username" value="joost"/>
-        <property name="password" value="datboi123"/>
+        <property name="url" value="jdbc:mysql://localhost/securitylab?zeroDateTimeBehavior=convertToNull"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
     </bean>
 
     <!-- Home DB -->

@@ -1,9 +1,11 @@
 package com.hr.securitylab.config;
 
+import com.hr.securitylab.services.DemoAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,15 +25,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("userDetailsService")
     UserDetailsService userDetailsService;
 
+    @Autowired
+    AuthenticationManager authenticationManager;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/resetpassword", "/api/report", "/api/decrypt")
+                .antMatchers("/login", "/register", "/test", "/resetpassword", "/api/setkey", "/api/decrypt")
                 .permitAll()
-                .antMatchers("/admin*//**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
@@ -71,5 +75,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){
         return new CustomBasicAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public DemoAuthenticationFilter getBasicAuthFIlter(){
+        return new DemoAuthenticationFilter(authenticationManager);
     }
 }

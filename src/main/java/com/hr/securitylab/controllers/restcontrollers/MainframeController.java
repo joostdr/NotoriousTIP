@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Created by joost on 4-10-2016.
  */
@@ -31,25 +33,16 @@ public class MainframeController {
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public String test(HttpServletRequest request) throws Exception{
-        return request.getHeader("Authorization");
+    public String test(HttpServletResponse response) throws Exception{
+        return response.getHeader("Authorization");
     }
 
     @RequestMapping(value = "/api/decrypt", method = RequestMethod.POST)
     public String decryptCiphertext(HttpServletRequest request) throws Exception{
-        /*switch(encryptionService.decrypt(request.getHeader("action"))){
-            case "on" : turnOn();
-                break;
-
-        }encryptionService.decrypt(result.getHeader("Authorize"));*/
-        //return test1(result);
-        String headers1 = request.getHeader("Authorization");
-        //System.out.println(EncryptionService.decrypt("AnYTn3q/xU5uT2UTHZ7b6Q=="));
-        System.out.println(EncryptionService.encrypt("Hi, I'm secret!"));
-        return test(request);
+        return request.getHeader("Authorization");
     }
 
-    @RequestMapping(value = "/api/report", method = RequestMethod.POST)
+    @RequestMapping(value = "/api/setkey", method = RequestMethod.POST)
     public Response retrieveDeviceEncryptionKey(HttpServletRequest request){
         if(encryptionService.checkIfProductIdIsValid(request.getHeader("productid"))){
             return encryptionService.getKey(request);
