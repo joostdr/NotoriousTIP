@@ -23,30 +23,26 @@
 <section id="login">
     <div class="container">
         <div class="jumbotron">
-            <form th:action="@{/logout}" method="post">
-                <div class="col-md-2 pull-right"><input type="submit" class="btn btn-custom" value="Sign Out"/></div>
-            </form>
             <div class="row">
-                <div class="col-md-2"><h2>Information</h2></div>
+                <div class="col-md-10 pull-center"><p id="mainHead">TIP Command center</p></div>
+                <form th:action="@{/logout}" method="post">
+                    <div class="col-md-2 pull-right"><input type="submit" class="btn btn-custom" value="Sign Out"/></div>
+                </form>
             </div>
             <div class="row">
-                <div class="col-md-2"><b>Charge</b></div>
-                <div class="col-md-2">80%</div>
+                <div class="col-md-12 pull-center"><p id="ajaxResult">Device status: OFF</p></div>
             </div>
-            <div class="row">
-                <div class="col-md-2"><b>Status</b></div>
-                <div class="col-md-2" id = "ajaxResult">OFF</div>
-            </div>
-            <div class="row">
-                <div class="col-md-2"><b>Time on</b></div>
-                <div class="col-md-2">10h 2m</div>
-            </div>
-            <div class="row">
+            <div class="row" id="onOffButtonRow">
                 <div class="col-md-12 pull-center"><input type="checkbox" id="ayy" data-toggle="toggle"
                                                           data-width="100"/></div>
             </div>
-            <div class="col-md-12 pull-center" id = "loading" style="display: none;"><!--<img th:href="@{../assets/loading.gif}"> </img>--><p><Loading></Loading></p></div>
-            <div class="col-md-12 pull-center" id = "ajaxError"></div>
+            <div class="col-md-12 pull-center" id="loading" style="display: none;">
+                <!--<img th:href="@{../assets/loading.gif}"> </img>-->
+                <p>
+                    <Loading></Loading>
+                </p>
+            </div>
+            <div class="col-md-12 pull-center" id="ajaxError"></div>
             <!---->
         </div>
     </div>
@@ -56,43 +52,47 @@
 <script>
 
     /*$(document).ajaxStart(function() {
-        $("#loading").show();
-        console.log("SHOW");
-    });
+     $("#loading").show();
+     console.log("SHOW");
+     });
 
-    $(document).ajaxStop(function() {
-        $("#loading").hide();
-        console.log("HIDE");
-    });*/
+     $(document).ajaxStop(function() {
+     $("#loading").hide();
+     console.log("HIDE");
+     });*/
 
     $(function () { //function which handles the on/off button
         $('#ayy').change(function () {
-            if($(this).prop('checked')){ //if ON > do POST request to Java controller which makes HTTP calls to the vibrator
+            if ($(this).prop('checked')) { //if ON > do POST request to Java controller which makes HTTP calls to the vibrator
                 $("#loading").show();
                 $.ajax({
-                    url: "command/on",
-                }).done(function(data){
+                    url: "on",
+                }).done(function (data) {
                     $("#loading").hide();
                     $("#ajaxError").text(data);
-                    switch(data){
-                        case "200": $("#ajaxResult").text("ON");
+                    switch (data) {
+                        case "200":
+                            $("#ajaxResult").text("Device status: ON");
                             break;
-                        case "500": $("#ajaxError").text("Something went wrong");
+                        case "500":
+                            $("#ajaxError").text("Something went wrong");
                             break;
                     }   //return response code
                 });
             }
-            else{ //if OFF > do same as above
+            else { //if OFF > do same as above
                 $("#loading").show();
                 $.ajax({
-                    url: "command/off",
-                }).done(function(data){
+                    url: "off",
+                }).done(function (data) {
                     $("#loading").hide();//alert(data);
                     $("#ajaxError").text(data);
-                    switch(data){
-                        case "200": $("#ajaxResult").text("OFF");
+                    switch (data) {
+                        case "200":
+                            $("#ajaxResult").text("Device status: OFF");
                             break;
-                        case "500": $("#ajaxError").text("Something went wrong");
+                        case "500":
+                            $("#ajaxError").text("Something went wrong");
                             break;
                     }
                 });

@@ -120,3 +120,15 @@ p.registrationDescription{
     color: #a8a8a8;
     font-size: 1.0em
 }
+
+#mainHead{
+    font-size: 40px;
+}
+
+#ajaxResult{
+    font-size: 30px;
+}
+
+#onOffButtonRow{
+    margin-top:60px;
+}

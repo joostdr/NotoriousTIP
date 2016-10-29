@@ -45,15 +45,16 @@ public class HttpService {
     }
 
     public String httpOn() throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-        System.out.println("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("1"));
-        System.out.println("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("0"));
-        return this.executeGet("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("1"));
-        //return this.executeGet("http://192.168.111.1:8080/digital/2/1");
+       // System.out.println("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("1"));
+        //System.out.println("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("0"));
+        //return this.executeGet("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("1"));
+        return this.executeGet("http://google.com");
     }
 
     public String httpOff() throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-        return this.executeGet("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("0"));
+        //return this.executeGet("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("0"));
         //return this.executeGet("http://192.168.111.1:8080/digital/2/0");
+        return this.executeGet("http://google.com");
     }
 
     private String executeGet(String url) {
