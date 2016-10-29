@@ -26,7 +26,8 @@
             <div class="row">
                 <div class="col-md-10 pull-center"><p id="mainHead">TIP Command center</p></div>
                 <form th:action="@{/logout}" method="post">
-                    <div class="col-md-2 pull-right"><input type="submit" class="btn btn-custom" value="Sign Out"/></div>
+                    <div class="col-md-2 pull-right"><input type="submit" class="btn btn-custom" value="Sign Out"/>
+                    </div>
                 </form>
             </div>
             <div class="row">
@@ -36,11 +37,10 @@
                 <div class="col-md-12 pull-center"><input type="checkbox" id="ayy" data-toggle="toggle"
                                                           data-width="100"/></div>
             </div>
-            <div class="col-md-12 pull-center" id="loading" style="display: none;">
-                <!--<img th:href="@{../assets/loading.gif}"> </img>-->
-                <p>
-                    <Loading></Loading>
-                </p>
+            <div class="row">
+                <div class="col-md-12 pull-center" id="loadingDiv">
+                    <img src="https://s17.postimg.org/hftk82v8f/ajax_loader.gif"/>
+                </div>
             </div>
             <div class="col-md-12 pull-center" id="ajaxError"></div>
             <!---->
@@ -64,11 +64,13 @@
     $(function () { //function which handles the on/off button
         $('#ayy').change(function () {
             if ($(this).prop('checked')) { //if ON > do POST request to Java controller which makes HTTP calls to the vibrator
-                $("#loading").show();
+                $("#loadingDiv").show();
+                $('#ayy').bootstrapToggle('disable')
                 $.ajax({
-                    url: "on",
+                    url: "api/on",
                 }).done(function (data) {
-                    $("#loading").hide();
+                    $('#ayy').bootstrapToggle('enable')
+                    $("#loadingDiv").hide();
                     $("#ajaxError").text(data);
                     switch (data) {
                         case "200":
@@ -76,16 +78,19 @@
                             break;
                         case "500":
                             $("#ajaxError").text("Something went wrong");
+                            $('#ayy').bootstrapToggle('toggle');
                             break;
                     }   //return response code
                 });
             }
             else { //if OFF > do same as above
-                $("#loading").show();
+                $("#loadingDiv").show();
+                $('#ayy').bootstrapToggle('disable')
                 $.ajax({
-                    url: "off",
+                    url: "api/off",
                 }).done(function (data) {
-                    $("#loading").hide();//alert(data);
+                    $('#ayy').bootstrapToggle('enable')
+                    $("#loadingDiv").hide();//alert(data);
                     $("#ajaxError").text(data);
                     switch (data) {
                         case "200":

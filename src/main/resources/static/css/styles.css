@@ -132,3 +132,7 @@ p.registrationDescription{
 #onOffButtonRow{
     margin-top:60px;
 }
+
+#loadingDiv{
+    display:none;
+}

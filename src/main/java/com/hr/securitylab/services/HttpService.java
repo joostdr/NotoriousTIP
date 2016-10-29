@@ -48,7 +48,7 @@ public class HttpService {
        // System.out.println("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("1"));
         //System.out.println("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("0"));
         //return this.executeGet("http://192.168.111.1:8080/" + EncryptionService.encrypt("digital") + "/" + EncryptionService.encrypt("2") + "/" + EncryptionService.encrypt("1"));
-        return this.executeGet("http://google.com");
+        return this.executeGet("http://192.168.111.1");
     }
 
     public String httpOff() throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {

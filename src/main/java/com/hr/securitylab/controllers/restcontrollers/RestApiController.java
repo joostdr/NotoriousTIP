@@ -11,13 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Created by joost on 4-10-2016.
+ * Controller which handles the api endpoints
+ * Actions:
+ *  - Turn vibrator on
+ *  - Turn vibrator off
+ *  - Set key -> retrieve the encryptionkey from the database for the corresponding vibrator
  */
+
+//TODO /off and /on should be POST
 @RestController
-public class MainframeController {
+@RequestMapping(value = "/api")
+public class RestApiController {
     private HttpService http;
     private EncryptionService encryptionService;
-    public MainframeController() {
+    public RestApiController() {
         this.http = new HttpService();
         this.encryptionService = new EncryptionService();
     }
@@ -32,17 +39,7 @@ public class MainframeController {
         return http.httpOff();
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public String test(HttpServletResponse response) throws Exception{
-        return response.getHeader("Authorization");
-    }
-
-    @RequestMapping(value = "/api/decrypt", method = RequestMethod.POST)
-    public String decryptCiphertext(HttpServletRequest request) throws Exception{
-        return request.getHeader("Authorization");
-    }
-
-    @RequestMapping(value = "/api/setkey", method = RequestMethod.POST)
+    @RequestMapping(value = "/setkey", method = RequestMethod.POST)
     public Response retrieveDeviceEncryptionKey(HttpServletRequest request){
         if(encryptionService.checkIfProductIdIsValid(request.getHeader("productid"))){
             return encryptionService.getKey(request);

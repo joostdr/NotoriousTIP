@@ -1,6 +1,5 @@
 package com.hr.securitylab.config;
 
-import com.hr.securitylab.services.DemoAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +39,7 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf().disable()
                     .antMatcher("/api/**")
                     .authorizeRequests()
-                    .antMatchers("/api/setkey").permitAll()
+                    .antMatchers("/api/on", "/api/off").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .httpBasic();
@@ -56,7 +55,7 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
             http
                     .csrf().disable()
                     .authorizeRequests()
-                        .antMatchers("/register","/resetpassword", "/main", "/on", "/off").permitAll()
+                        .antMatchers("/register","/resetpassword", "/main", "/datboi", "/resources/**").permitAll()
                         .anyRequest().authenticated()
                         .and()
                     .formLogin()
@@ -83,15 +82,5 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
-
-    @Bean
-    public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint(){
-        return new CustomBasicAuthenticationEntryPoint();
-    }
-
-    /*@Bean
-    public DemoAuthenticationFilter getAuthenticationFilter() throws Exception {
-        return new DemoAuthenticationFilter(authenticationManagerBean());
-    }*/
 
 }
