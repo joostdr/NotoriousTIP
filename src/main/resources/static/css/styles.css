@@ -101,7 +101,7 @@
     color: inherit;
 }
 
-.jumbotron{
+#mainJumbotron{
     margin:auto;
     min-height:50%;
     width:70%
@@ -135,4 +135,19 @@ p.registrationDescription{
 
 #loadingDiv{
     display:none;
+}
+
+#landingJumbotron {
+    padding-top: 150px;
+    padding-bottom: 20px;
+    height:50%;
+    background: url(http://www.walldevil.com/wallpapers/a33/desktop-abstract-green-apple-wallpaper-wallpapers-background-mac.jpg);
+}
+
+.vertical-center {
+    min-height: 30%;  /* Fallback for browsers do NOT support vh unit */
+    min-height: 30vh; /* These two lines are counted as one :-)       */
+
+    display: flex;
+    align-items: center;
 }

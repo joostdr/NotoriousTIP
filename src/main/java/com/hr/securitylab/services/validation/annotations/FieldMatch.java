@@ -11,6 +11,9 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
+/**
+ * Dit heb ik niet geschreven
+ */
 
 /**
  * Validation annotation to validate that 2 fields have the same value.

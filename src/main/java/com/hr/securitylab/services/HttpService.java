@@ -22,6 +22,10 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Class which is responsible for making http calls
+ */
+
 public class HttpService {
 
     private static final HttpClient httpClient = HttpClientBuilder.create().build();

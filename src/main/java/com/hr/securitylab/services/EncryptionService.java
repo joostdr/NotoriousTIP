@@ -19,7 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 /**
- * Created by joost on 27-10-2016.
+ * Class which handles AES 128 ECB encryption
  */
 //TODO make sure request.getHeader("productid") is an integer
 public class EncryptionService {

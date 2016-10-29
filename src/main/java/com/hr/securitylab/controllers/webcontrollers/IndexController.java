@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by Joost on 29-10-2016.
+ * Index controller, serves the index page upon a GET to '/'
  */
 
 @Controller
-@RequestMapping("/datboi")
-public class DatBoiController {
+@RequestMapping("/")
+public class IndexController {
     @RequestMapping(method = RequestMethod.GET)
     public String returnView(Model model) {
         model.addAttribute("login", new User());
-        return "datboi";
+        return "index";
     }
 }

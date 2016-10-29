@@ -39,6 +39,12 @@ public class RestApiController {
         return http.httpOff();
     }
 
+    /**
+     * Method for setting the symmetric encryption key based on the supplied productid
+     * If the supplied key is not valid (contains characters or weird stuff), return bad response
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/setkey", method = RequestMethod.POST)
     public Response retrieveDeviceEncryptionKey(HttpServletRequest request){
         if(encryptionService.checkIfProductIdIsValid(request.getHeader("productid"))){

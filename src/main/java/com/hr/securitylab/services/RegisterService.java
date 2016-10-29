@@ -12,7 +12,9 @@ import java.util.Date;
 import java.util.HashSet;
 
 /**
- * Created by Joost on 16-10-2016.
+ * Class which is used for registering a new user
+ * NewUser object is supplied and gets mapped to an user object
+ * The final user object gets saved in the database
  */
 public class RegisterService {
 

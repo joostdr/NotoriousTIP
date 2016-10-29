@@ -6,6 +6,11 @@ import com.hr.securitylab.database.models.entities.User;
 
 import java.util.Date;
 
+/**
+ * Class which is used for resetting the password of an user
+ * Resetpassword gets supplied and mapped to a user model
+ * The final user object gets updated in the database
+ */
 public class ResetService {
 
     public ResetService() {

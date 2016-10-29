@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 /**
- * Created by joost on 4-10-2016.
+ * Register controller, serves the main page upon a GET to '/register'
+ * POST to /register is used for registering a new user
  */
 
 @Controller
@@ -24,6 +25,14 @@ public class RegisterController{
         model.addAttribute("newuser", new NewUser());
         return "register";
     }
+
+    /**
+     * Registers a new user based on the supplied NewUser object
+     * Checks if there are validation errors > see services/validation for more
+     * @param newUser
+     * @param errors
+     * @return
+     */
 
     @RequestMapping(method = RequestMethod.POST)
     public String registerUser(@ModelAttribute("newuser") @Valid NewUser newUser, Errors errors) {

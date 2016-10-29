@@ -17,6 +17,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+/**
+ * Class which contains the security configuration for spring
+ * - Determines which endpoints require authentication and which ones do not
+ * - Configure userDetailsService in combination with DaoAuthenticationProvider for database authentication
+ * - Configure password encryption using BCrypt
+ */
+
 @Configuration
 
 public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -31,45 +38,59 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(authenticationProvider());
     }
 
+    /**
+     * ApiWebSecurityConfigurationAdapter is responsible for securing the API endpoints
+     * API endpoints > all endpoints with mapping /api/...
+     * @Order annotations allow us to have two seperate methods for securing endpoints > 1 method for securing API requests and 1 method for securing Web requests
+     */
     @Configuration
     @Order(1)
+    //TODO /on and /off shouldm't be permit all
     public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
             http
-                    .csrf().disable()
+                    .csrf().disable() //disable cross side request forgery
                     .antMatcher("/api/**")
                     .authorizeRequests()
-                    .antMatchers("/api/on", "/api/off").permitAll()
+                    .antMatchers("/api/on", "/api/off").permitAll() //endpoints which don't require httpbasic authentication
                     .anyRequest().authenticated()
                     .and()
-                    .httpBasic();
+                    .httpBasic(); //apply httpBasic to the api endpoints
         }
     }
-
+    /**
+     * FormLoginWebSecurityConfigurerAdapter is responsible for securing the Web endpoints
+     * Web endpoints > all endpoints which user can navigate to through the webapp
+     */
     @Configuration
     @Order(2)
     public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
         @Override
+
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .csrf().disable()
                     .authorizeRequests()
-                        .antMatchers("/register","/resetpassword", "/main", "/datboi", "/resources/**").permitAll()
+                        .antMatchers("/register","/resetpassword", "/main", "/").permitAll() //endpoints which don't require the user to be logged in
                         .anyRequest().authenticated()
                         .and()
                     .formLogin()
-                        .loginPage("/login")
+                        .loginPage("/login") //the mapping of the login page
                         .permitAll()
                         .and()
                     .formLogin()
-                        .defaultSuccessUrl("/main", true)
+                        .defaultSuccessUrl("/main", true) //after successful login redirect to main page
                         .and()
                     .logout()
                         .permitAll();
         }
     }
 
+    /**
+     * Method to enable BCrypt password encoding
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

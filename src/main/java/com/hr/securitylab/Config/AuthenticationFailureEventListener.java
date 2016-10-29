@@ -6,6 +6,10 @@ import org.springframework.security.authentication.event.AuthenticationFailureBa
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class which gets invoked upon a failed authenticaiton attempt
+ */
+
 @Component
 public class AuthenticationFailureEventListener implements ApplicationListener<AuthenticationFailureBadCredentialsEvent> {
 

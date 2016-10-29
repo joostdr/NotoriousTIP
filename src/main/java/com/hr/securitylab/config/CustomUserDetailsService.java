@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Joost on 15-10-2016
+ * UserdetailsService which is used for authenticating users
  */
 
 @Service("userDetailsService")
@@ -30,6 +30,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private HttpServletRequest request;
+
+    /**
+     * Method which checks if an user exists based on the supplied credentials in the authentication
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -55,6 +62,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         return authorities;
     }
+
+    /**
+     * Method which returns the ip made by the client
+     * @return
+     */
 
     private String getClientIP() {
         String xfHeader = request.getHeader("X-Forwarded-For");

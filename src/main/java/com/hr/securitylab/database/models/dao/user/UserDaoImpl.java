@@ -1,8 +1,11 @@
 package com.hr.securitylab.database.models.dao.user;
 
+import com.hr.securitylab.database.models.entities.Product;
 import com.hr.securitylab.database.models.entities.User;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,12 +27,10 @@ public class UserDaoImpl implements UserDao {
         return sessionFactory.getCurrentSession();
     }*/
 
-    public User findByUsername(String username){
-        String hql = "FROM User u where u.username = :username";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("username", username);
-        Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
-        return result.get();
+    public User findUserByUsername(String username){
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.like("username",username));
+        Optional<User> result = Optional.ofNullable((User) criteria.uniqueResult());
+        return result.isPresent() ? result.get() : null;
     }
 
     @Override
@@ -39,19 +40,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean checkIfEmailExists(String email) {
-        String hql = "FROM User u WHERE u.email = :user_email";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("user_email",email);
-        Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
-        return result.isPresent();
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.like("email",email));
+        return (Optional.ofNullable((User) criteria.uniqueResult())).isPresent();
     }
 
     @Override
     public boolean checkIfUsernameExists(String username) {
-        String hql = "FROM User u WHERE u.username = :username";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("username",username);
-        Optional<User> result = Optional.ofNullable((User) query.uniqueResult());
-        return result.isPresent();
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class).add(Restrictions.like("username",username));
+        return (Optional.ofNullable((Product) criteria.uniqueResult())).isPresent();
     }
 }

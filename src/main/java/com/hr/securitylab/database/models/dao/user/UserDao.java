@@ -7,7 +7,7 @@ import com.hr.securitylab.database.models.entities.User;
  */
 public interface UserDao {
 
-    User findByUsername(String username);
+    User findUserByUsername(String username);
 
     void saveOrUpdate(User user);
 

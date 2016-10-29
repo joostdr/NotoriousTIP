@@ -8,7 +8,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Created by Joost on 17-10-2016.
+ * Class used for instantiating DaoServiceImplementations based on the autowired spring beans > see spring.xml
+ * This way we don't need to define an applicationcontext everytime we need to instantiate a serviceimpl
  */
 public class DatabaseFactory {
 
