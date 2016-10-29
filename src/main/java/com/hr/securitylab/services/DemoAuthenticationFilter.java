@@ -3,6 +3,8 @@ package com.hr.securitylab.services;
 import com.hr.securitylab.exceptions.KeyNotSetException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -28,9 +30,24 @@ public class DemoAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        super.doFilterInternal(request, response, chain);
-        chain.doFilter(request, response);
+        AuthenticationManager manager = this.getAuthenticationManager();
     }
+
+    @Override
+    protected void onSuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, Authentication authResult) throws IOException {
+        super.onSuccessfulAuthentication(request, response, authResult);
+    }
+
+    @Override
+    protected void onUnsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
+        super.onUnsuccessfulAuthentication(request, response, failed);
+    }
+
+    @Override
+    protected AuthenticationManager getAuthenticationManager() {
+        return super.getAuthenticationManager();
+    }
+
     /*@Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String auth = request.getHeader("Authorization");

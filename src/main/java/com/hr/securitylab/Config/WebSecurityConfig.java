@@ -10,6 +10,8 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,32 +27,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("userDetailsService")
     UserDetailsService userDetailsService;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/test", "/resetpassword", "/api/setkey", "/api/decrypt")
-                .permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .realmName(REALM)
-                .authenticationEntryPoint(getBasicAuthEntryPoint())
-                .and()
+                    .antMatchers("/register","/resetpassword").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
+                .addFilterBefore(new DemoAuthenticationFilter(authenticationManagerBean()), BasicAuthenticationFilter.class).antMatcher("/api/authenticate")
                 .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
+                    .loginPage("/login")
+                    .permitAll()
+                    .and()
                 .formLogin()
-                .defaultSuccessUrl("/main", true)
-                .and()
+                    .defaultSuccessUrl("/main", true)
+                    .and()
                 .logout()
-                .permitAll();
+                    .permitAll();
     }
 
     @Autowired
@@ -77,8 +72,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomBasicAuthenticationEntryPoint();
     }
 
-    @Bean
-    public DemoAuthenticationFilter getBasicAuthFIlter(){
-        return new DemoAuthenticationFilter(authenticationManager);
-    }
+    /*@Bean
+    public DemoAuthenticationFilter getAuthenticationFilter() throws Exception {
+        return new DemoAuthenticationFilter(authenticationManagerBean());
+    }*/
+
 }
