@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Latest compiled and minified CSS -->
     <!-- Latest compiled and minified CSS -->
@@ -36,8 +36,8 @@
             <a class="navbar-brand" href="#">Project name</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
-                <a href="/login" class="btn btn-success">Log in</a>
+            <form th:action="@{/logout}" method="post" class="navbar-form navbar-right">
+                <input type="submit" class="btn btn-danger" value="Sign Out"/>
             </form>
         </div><!--/.navbar-collapse -->
     </div>
@@ -50,6 +50,7 @@
             <div class="col-md-12 pull-center">
                 <h1>Just the TIP</h1>
                 <p>The future of vibrators is here.</p>
+                <a href="/main" class="btn btn-primary">Control your vibrator now</a>
             </div>
         </div>
     </div>
@@ -76,7 +77,7 @@
                 privacy for the end users.</p>
         </div>
     </div>
-<hr/>
+    <hr/>
     <footer>
         <p>© 2016 The notorious TIP</p>
     </footer>

@@ -23,7 +23,7 @@ public class LoginController {
     @RequestMapping(method = RequestMethod.GET)
     public String returnView(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) return "index";
+        if (!(auth instanceof AnonymousAuthenticationToken)) return "index2";
         model.addAttribute("login", new User());
         return "login";
     }

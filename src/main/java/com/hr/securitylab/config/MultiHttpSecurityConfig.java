@@ -48,6 +48,7 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
     @Configuration
     @Order(1)
     //TODO /on and /off shouldm't be permit all
+    //TODO implement 404 error page handling
     public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
             http
@@ -74,7 +75,7 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
             http
                     .csrf().disable()
                     .authorizeRequests()
-                        .antMatchers("/register","/resetpassword", "/").permitAll() //endpoints which don't require the user to be logged in
+                        .antMatchers("/register","/resetpassword", "/main", "/").permitAll() //endpoints which don't require the user to be logged in
                         .anyRequest().authenticated()
                         .and()
                     .formLogin()
@@ -82,9 +83,10 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                         .and()
                     .formLogin()
-                        .defaultSuccessUrl("/main", true) //after successful login redirect to main page
+                        .defaultSuccessUrl("/", true) //after successful login redirect to home page
                         .and()
                     .logout()
+                        .logoutSuccessUrl("/")
                         .permitAll();
         }
     }
