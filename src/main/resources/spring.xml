@@ -15,9 +15,6 @@
     <context:component-scan
             base-package="com.hr.securitylab.database"/>
 
-    <mvc:annotation-driven />
-    <mvc:resources mapping="/resources/**" location="/resources/" />
-
     <!-- Server DB -->
     <bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="url" value="jdbc:mysql://localhost/securitylab?zeroDateTimeBehavior=convertToNull"/>

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Index controller, serves the index page upon a GET to '/'
  */
-
+//TODO try to implement logged in or not on main page 
 @Controller
 @RequestMapping("/")
 public class IndexController {

@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Latest compiled and minified CSS -->
     <!-- Latest compiled and minified CSS -->
@@ -37,7 +37,13 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right">
-                <a href="/login" class="btn btn-success">Log in</a>
+                <sec:authorize access="isAuthenticated()">
+                    <p>DAnk</p>
+                </sec:authorize>
+                <!--
+                <div sec:authorize="isAuthenticated()" class="col-md-2 pull-right"><input type="submit" class="btn btn-custom"
+                                                                                          value="Sign Out"/></div>
+                <p sec:authorize="isAnonymous()">meme</p>-->
             </form>
         </div><!--/.navbar-collapse -->
     </div>

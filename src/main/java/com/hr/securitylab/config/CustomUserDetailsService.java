@@ -46,7 +46,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new RuntimeException("IP is blocked");
         }*/
         try{
-            User user = userService.findByUsername(username);
+            User user = userService.findUserByUsername(username);
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
         }
         catch (Exception e){
