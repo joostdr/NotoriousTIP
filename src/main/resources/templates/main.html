@@ -1,5 +1,6 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- Latest compiled and minified CSS -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
@@ -8,105 +9,92 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
     <!-- Latest compiled and minified JavaScript -->
-    <script src="http://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-            crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"/>
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <link href="../static/css/styles.css"
-          th:href="@{/css/main.css}" rel="stylesheet"/>
-</head>
-<body>
-<div class="container">
+          th:href="@{/css/styles.css}" rel="stylesheet"/>
 
-    <div class="header clearfix">
-        <nav>
-            <ul class="nav nav-pills pull-right">
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" class="btn btn-danger" value="Sign Out"/>
-                </form>
-            </ul>
-        </nav>
-        <h3 class="text-muted">Control center</h3>
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form th:action="@{/logout}" method="post" class="navbar-form navbar-right">
+                <input type="submit" class="btn btn-danger" value="Sign Out"/>
+            </form>
+        </div><!--/.navbar-collapse -->
     </div>
-    <div class="jumbotron">
-        <h1>Control your device</h1>
-        <p><small>(Having problems? Check the FAQ below)</small></p>
-        <div class="row" id="onOffButtonRow">
-            <div class="col-md-12 pull-center"><input type="checkbox" id="ayy" data-toggle="toggle"
-                                                      data-width="100"/></div>
-        </div>
+</nav>
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron" id="landingJumbotron">
+    <div class="container">
         <div class="row">
-            <div class="col-md-12 pull-center"><p id="ajaxResult">Device status: OFF</p></div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 pull-center" id="loadingDiv">
-                <img src="https://s17.postimg.org/hftk82v8f/ajax_loader.gif"/>
+            <div class="col-md-12 pull-center">
+                <h1>Just the TIP</h1>
+                <p>The future of vibrators is here.</p>
+                <a href="/main" class="btn btn-primary">Control your vibrator now</a>
             </div>
         </div>
-        <div class="col-md-12 pull-center" id="ajaxError"></div>
-        <!---->
     </div>
 </div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4 pull-center">
+            <img src="https://i.imgsafe.org/506f33d980.png"/>
+            <h2>Connect over the internet</h2>
+            <p>Operate your vibrator via an user friendly interface over the internet.</p>
+        </div>
+        <div class="col-md-4 pull-center">
+            <img src="https://i.imgsafe.org/506f68ef2a.png"/>
+            <h2>Unisex</h2>
+            <p>It doesn't matter whether you are a man or a female. Our unique design makes it possible to combine a
+                base unit with a customized tip. </p>
+        </div>
+        <div class="col-md-4 pull-center">
+            <img src="https://i.imgsafe.org/506f45caf1.png"/>
+            <h2>Secure</h2>
+            <p>We value the privacy of our users alot. That's why we developed this system in a way which guarantees
+                privacy for the end users.</p>
+        </div>
+    </div>
+    <hr/>
+    <footer>
+        <p>© 2016 The notorious TIP</p>
+    </footer>
+</div>
+<!--
+<hr/>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 pull-center">
+            <h1>How does it work?</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                Connect to the access point created by the vibrator
+            </div>
+        </div>
+    </div>
+</div>-->
 </body>
-
-<script>
-
-    /*$(document).ajaxStart(function() {
-     $("#loading").show();
-     console.log("SHOW");
-     });
-
-     $(document).ajaxStop(function() {
-     $("#loading").hide();
-     console.log("HIDE");
-     });*/
-
-    $(function () { //function which handles the on/off button
-        $('#ayy').change(function () {
-            if ($(this).prop('checked')) { //if ON > do POST request to Java controller which makes HTTP calls to the vibrator
-                $("#loadingDiv").show();
-                $('#ayy').bootstrapToggle('disable')
-                $.ajax({
-                    url: "api/on",
-                }).done(function (data) {
-                    $('#ayy').bootstrapToggle('enable')
-                    $("#loadingDiv").hide();
-                    $("#ajaxError").text(data);
-                    switch (data) {
-                        case "200":
-                            $("#ajaxResult").text("Device status: ON");
-                            break;
-                        case "500":
-                            $("#ajaxError").text("Something went wrong");
-                            $('#ayy').bootstrapToggle('toggle');
-                            break;
-                    }   //return response code
-                });
-            }
-            else { //if OFF > do same as above
-                $("#loadingDiv").show();
-                $('#ayy').bootstrapToggle('disable')
-                $.ajax({
-                    url: "api/off",
-                }).done(function (data) {
-                    $('#ayy').bootstrapToggle('enable')
-                    $("#loadingDiv").hide();//alert(data);
-                    $("#ajaxError").text(data);
-                    switch (data) {
-                        case "200":
-                            $("#ajaxResult").text("Device status: OFF");
-                            break;
-                        case "500":
-                            $("#ajaxError").text("Something went wrong");
-                            break;
-                    }
-                });
-            }
-        })
-    })
-</script>
 </html>

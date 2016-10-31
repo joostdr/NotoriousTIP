@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
  * - /api/poll
  */
 
-//TODO /off and /on should be POST
 @RestController
 @RequestMapping(value = "/api")
 public class RestApiController {

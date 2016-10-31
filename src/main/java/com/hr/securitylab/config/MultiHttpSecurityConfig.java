@@ -44,7 +44,6 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Configuration
     @Order(1)
-    //TODO /on and /off shouldm't be permit all
     //TODO implement 404 error page handling
     public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
@@ -80,7 +79,7 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                         .and()
                     .formLogin()
-                        .defaultSuccessUrl("/", true) //after successful login redirect to home page
+                        .defaultSuccessUrl("/main", true) //after successful login redirect to home page
                         .and()
                     .logout()
                         .logoutSuccessUrl("/")
