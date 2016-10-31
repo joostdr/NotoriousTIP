@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Controller which handles the api endpoints
- * Actions:
- *  - Turn vibrator on
- *  - Turn vibrator off
- *  - Set key -> retrieve the encryptionkey from the hibernate for the corresponding vibrator
+ * api endpoints:
+ * - /api/poll
  */
 
 //TODO /off and /on should be POST
@@ -31,31 +29,19 @@ public class RestApiController {
     }
 
     /**
-     * Method for setting the symmetric encryption key based on the supplied productid
-     * If the supplied key is not valid (contains characters or weird stuff), return bad response
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/setkey", method = RequestMethod.POST)
-    public Response retrieveDeviceEncryptionKey(HttpServletRequest request){
-        if(ProductIdValidator.checkIfProductIdIsValid(request.getHeader("productid"))){
-            return encryptionService.getKey(request);
-        }
-        else{
-            return new Response(400, "Productid not valid");
-        }
-    }
-
-    /**
      * Method which gets called by the vibrator every 5 seconds
+     * Sets the symmetric encryption key based on the supplied productid
      * Reads contents from the polling table
      * This way the vibrator can determine whether it needs to vibrate or not
+     *
+     * Also checks if the productid is valid, see {@link ProductIdValidator}
      * @param request
      * @return
      */
     @RequestMapping(value = "/poll", method = RequestMethod.POST)
     public PollingRest checkPollingTable(HttpServletRequest request){
         if(ProductIdValidator.checkIfProductIdIsValid(request.getHeader("productid"))){
+            encryptionService.getKey(request);
             return pollingService.checkPollingTable(request.getHeader("productid"));
         }
         return new PollingRest(null,false,"Productid is not valid");

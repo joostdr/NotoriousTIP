@@ -18,7 +18,6 @@ import java.util.Base64;
 /**
  * Class which handles AES 128 ECB encryption
  */
-//TODO make sure request.getHeader("productid") is an integer
 public class EncryptionService {
 
     private static SecretKey key;
@@ -30,14 +29,11 @@ public class EncryptionService {
      * @param request
      * @return
      */
-    public Response getKey(HttpServletRequest request) {
-        String productId = request.getHeader("productId");
-        Product product = DatabaseFactory.getProductService().findById(productId);
-        String keyString = product.getEncryption_key();
-        saveIp(request.getRemoteAddr(), product);
+    public void getKey(HttpServletRequest request) {
+        String productId = request.getHeader("productid");
+        String keyString = DatabaseFactory.getProductService().findById(productId).getEncryption_key();
         byte[] encodedKey = keyString.getBytes();
         key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
-        return new Response(200, "Key saved");
     }
 
     public static Response decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, KeyNotSetException, InvalidKeyException {
@@ -54,14 +50,5 @@ public class EncryptionService {
         byte[] encrypted = cipher.doFinal(plainText.getBytes());
         String encryptedString = Hex.encodeHexString(encrypted);
         return new Response(200, encryptedString);
-    }
-
-    /**
-     * Saves the devices ip in the hibernate
-     */
-
-    private void saveIp(String remoteAddress, Product product) {
-        product.setIp(remoteAddress);
-        DatabaseFactory.getProductService().saveOrUpdate(product);
     }
 }

@@ -32,9 +32,6 @@ public class Product {
     @Column(name = "activated")
     private boolean activated;
 
-    @Column(name = "ip")
-    private String ip;
-
     @OneToOne
     @JoinColumn(name = "polling_id")
     private Polling polling;
@@ -51,13 +48,12 @@ public class Product {
     public Product() {
     }
 
-    public Product(User user, String productcode, String pin, String encryption_key, boolean activated, String ip, Polling polling, Date created_at, Date updated_at, Date deleted_at) {
+    public Product(User user, String productcode, String pin, String encryption_key, boolean activated, Polling polling, Date created_at, Date updated_at, Date deleted_at) {
         this.user = user;
         this.productcode = productcode;
         this.pin = pin;
         this.encryption_key = encryption_key;
         this.activated = activated;
-        this.ip = ip;
         this.polling = polling;
         this.created_at = created_at;
         this.updated_at = updated_at;
@@ -134,14 +130,6 @@ public class Product {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     public Polling getPolling() {
