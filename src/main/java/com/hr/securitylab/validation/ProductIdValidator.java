@@ -14,7 +14,10 @@ public class ProductIdValidator {
      */
 
     public static boolean checkIfProductIdIsValid(String productId){
-        return checkIfProductIdOnlyContainsNumbers(productId) && checkIfProductIdExists(productId);
+        if(!productId.isEmpty()){
+            return checkIfProductIdOnlyContainsNumbers(productId) && checkIfProductIdExists(productId);
+        }
+        return false;
     }
 
     /**
