@@ -1,16 +1,13 @@
 package com.hr.securitylab.services;
 
-import com.hr.securitylab.database.models.DatabaseFactory;
-import com.hr.securitylab.database.models.entities.Product;
-import com.hr.securitylab.database.models.entities.Response;
+import com.hr.securitylab.database.DatabaseFactory;
+import com.hr.securitylab.database.entities.hibernate.Product;
+import com.hr.securitylab.database.entities.rest.Response;
 import com.hr.securitylab.exceptions.KeyNotSetException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.codec.binary.Hex;
-import org.cryptacular.codec.Base64Decoder;
-import org.cryptacular.codec.HexEncoder;
 
 import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidAlgorithmParameterException;
@@ -27,7 +24,7 @@ public class EncryptionService {
     private static SecretKey key;
 
     /**
-     * Retrieves encryptionkey from the database for the corresponding device
+     * Retrieves encryptionkey from the hibernate for the corresponding device
      * Saves the encryptionkey in the variable key
      *
      * @param request
@@ -37,7 +34,6 @@ public class EncryptionService {
         String productId = request.getHeader("productId");
         Product product = DatabaseFactory.getProductService().findById(productId);
         String keyString = product.getEncryption_key();
-        if (keyString == null) return new Response(400, "ID does not exist");
         saveIp(request.getRemoteAddr(), product);
         byte[] encodedKey = keyString.getBytes();
         key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
@@ -61,24 +57,11 @@ public class EncryptionService {
     }
 
     /**
-     * Saves the devices ip in the database
+     * Saves the devices ip in the hibernate
      */
 
     private void saveIp(String remoteAddress, Product product) {
         product.setIp(remoteAddress);
         DatabaseFactory.getProductService().saveOrUpdate(product);
     }
-
-    /**
-     * check if the productid contains only numbers
-     * productid gets parsed to an int in getEncrpytionKeyByProductId, so if it contains characters of some sort it crashes
-     *
-     * @param productId
-     * @return
-     */
-    public boolean checkIfProductIdIsValid(String productId) {
-        return productId.matches("[0-9]+");
-    }
-
-
 }

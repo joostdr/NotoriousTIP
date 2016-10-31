@@ -1,6 +1,6 @@
 package com.hr.securitylab.webcontrollers;
 
-import com.hr.securitylab.database.models.entities.NewUser;
+import com.hr.securitylab.database.entities.validation.NewUser;
 import com.hr.securitylab.services.RegisterService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

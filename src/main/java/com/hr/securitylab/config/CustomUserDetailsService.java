@@ -1,8 +1,8 @@
 package com.hr.securitylab.config;
 
-import com.hr.securitylab.database.models.dao.user.UserService;
-import com.hr.securitylab.database.models.entities.Role;
-import com.hr.securitylab.database.models.entities.User;
+import com.hr.securitylab.database.dao.user.UserService;
+import com.hr.securitylab.database.entities.hibernate.Role;
+import com.hr.securitylab.database.entities.hibernate.User;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

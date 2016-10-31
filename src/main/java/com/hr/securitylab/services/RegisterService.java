@@ -1,10 +1,9 @@
 package com.hr.securitylab.services;
 
-import com.hr.securitylab.database.models.DatabaseFactory;
-import com.hr.securitylab.database.models.entities.NewUser;
-import com.hr.securitylab.database.models.entities.Product;
-import com.hr.securitylab.database.models.entities.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.hr.securitylab.database.DatabaseFactory;
+import com.hr.securitylab.database.entities.hibernate.Product;
+import com.hr.securitylab.database.entities.hibernate.User;
+import com.hr.securitylab.database.entities.validation.NewUser;
 import org.springframework.validation.Errors;
 
 import java.util.Arrays;
@@ -14,7 +13,7 @@ import java.util.HashSet;
 /**
  * Class which is used for registering a new user
  * NewUser object is supplied and gets mapped to an user object
- * The final user object gets saved in the database
+ * The final user object gets saved in the hibernate
  */
 public class RegisterService {
 

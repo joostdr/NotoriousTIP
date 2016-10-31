@@ -1,6 +1,6 @@
 package com.hr.securitylab.webcontrollers;
 
-import com.hr.securitylab.database.models.entities.ResetPassword;
+import com.hr.securitylab.database.entities.validation.ResetPassword;
 import com.hr.securitylab.services.ResetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,6 +1,6 @@
 package com.hr.securitylab.controllers.webcontrollers;
 
-import com.hr.securitylab.database.models.entities.User;
+import com.hr.securitylab.database.entities.hibernate.User;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

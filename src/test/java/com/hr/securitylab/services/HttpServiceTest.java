@@ -1,10 +1,7 @@
 package com.hr.securitylab.services;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Joost on 29-10-2016.
