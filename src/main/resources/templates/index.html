@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Latest compiled and minified CSS -->
     <!-- Latest compiled and minified CSS -->
@@ -27,7 +27,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -55,8 +56,11 @@
     </div>
 </div>
 
-<div class="container">
-    <!-- Example row of columns -->
+<!-- START THE FEATURETTES -->
+
+<hr class="featurette-divider"/>
+
+<div class="container marketing">
     <div class="row">
         <div class="col-md-4 pull-center">
             <img src="https://i.imgsafe.org/506f33d980.png"/>
@@ -76,24 +80,54 @@
                 privacy for the end users.</p>
         </div>
     </div>
-<hr/>
-    <footer>
-        <p>© 2016 The notorious TIP</p>
-    </footer>
-</div>
-<!--
-<hr/>
-<div class="container">
-    <div class="row">
-        <div class="col-md-12 pull-center">
-            <h1>How does it work?</h1>
+    <hr/>
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Register your product online<!--<span
+                    class="text-muted">It'll blow your mind.</span>-->
+            </h2>
+            <p class="lead">Each product gets shipped with a productcode and a PIN code. The productcode can be used to
+                make an account on the website.
+                Your PIN code is needed for resetting your password.
+                You also find a PIN here. You will need this PIN to reset your password.</p>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-                Connect to the access point created by the vibrator
-            </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" src=""/>
         </div>
     </div>
-</div>-->
+
+    <hr class="featurette-divider"/>
+
+    <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+            <h2 class="featurette-heading">Control your vibrator with an user friendly interface
+                <!--<span class="text-muted">See for yourself.</span>-->
+            </h2>
+            <p class="lead">Login and make use of the user interface. Via this interface you can control your
+                vibrator</p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+            <img class="featurette-image img-responsive center-block" src=""/>
+        </div>
+    </div>
+
+    <hr class="featurette-divider"/>
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Easily chargable batteries</h2>
+            <!--<span class="text-muted">Checkmate.</span></h2>-->
+            <p class="lead">Is your vibrator empty? No problem fam. Use the USB-b mini port on the bottom to charge.</p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" src=""/>
+        </div>
+    </div>
+    <hr class="featurette-divider"/>
+    <footer>
+        Copyright 2016 The Notorious TIP
+    </footer>
+</div>
+
 </body>
 </html>

@@ -3,7 +3,6 @@ package com.hr.securitylab.controllers.restcontrollers;
 import com.hr.securitylab.database.entities.rest.PollingRest;
 import com.hr.securitylab.database.entities.rest.Response;
 import com.hr.securitylab.services.EncryptionService;
-import com.hr.securitylab.services.HttpService;
 import com.hr.securitylab.services.PollingService;
 import com.hr.securitylab.validation.ProductIdValidator;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -23,24 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/api")
 public class RestApiController {
-    private HttpService http;
     private EncryptionService encryptionService;
     private PollingService pollingService;
 
     public RestApiController() {
-        this.http = new HttpService();
         this.encryptionService = new EncryptionService();
         this.pollingService = new PollingService();
-    }
-
-    @RequestMapping(value = "/on", method = RequestMethod.GET)
-    public String turnOn() throws Exception{
-        return http.httpOn();
-    }
-
-    @RequestMapping(value = "/off", method = RequestMethod.GET)
-    public String turnOff() throws Exception{
-        return http.httpOff();
     }
 
     /**
@@ -59,6 +46,13 @@ public class RestApiController {
         }
     }
 
+    /**
+     * Method which gets called by the vibrator every 5 seconds
+     * Reads contents from the polling table
+     * This way the vibrator can determine whether it needs to vibrate or not
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/poll", method = RequestMethod.POST)
     public PollingRest checkPollingTable(HttpServletRequest request){
         if(ProductIdValidator.checkIfProductIdIsValid(request.getHeader("productid"))){
