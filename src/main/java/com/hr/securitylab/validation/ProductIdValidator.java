@@ -9,13 +9,15 @@ public class ProductIdValidator {
 
     /**
      * Method which checks if:
+     * - ProductId is not null
+     * - ProductId is not empty
      * - ProductId only contains numbers
      * - ProductId exists
      */
 
     public static boolean checkIfProductIdIsValid(String productId){
-        if(!productId.isEmpty()){
-            return checkIfProductIdOnlyContainsNumbers(productId) && checkIfProductIdExists(productId);
+        if(productId != null){
+            return !productId.isEmpty() && checkIfProductIdOnlyContainsNumbers(productId) && checkIfProductIdExists(productId);
         }
         return false;
     }
