@@ -1,0 +1,84 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link href="../static/css/styles.css"
+          th:href="@{/css/styles.css}" rel="stylesheet"/>
+</head>
+<body>
+<section id="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-wrap">
+                    <h1>Register</h1>
+                    <form action="#" th:action="@{/register}" th:object="${newuser}" method="post" id="login-form"
+                          autocomplete="off">
+                        <div class="form-group">
+                            <!--<label for="username">Must be 8 to 20 characters</label>-->
+                            <input id="username" type="text" th:field="*{username}" class="form-control"
+                                   placeholder="Username"  maxlength="32"/>
+                            <th:block th:switch="${#fields.hasErrors('username')}">
+                                <p th:case="false" class="registrationDescription">Must contain 8 to 20 characters</p>
+                                <p th:case="true" class="errorText" th:errors="*{username}"></p>
+                            </th:block>
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="password">Must be 8 to 20 characters, contain 1 uppercase character, 1 number</label>-->
+                            <input id="password" type="password" th:field="*{password}" class="form-control"
+                                   placeholder="Password"  maxlength="32"/>
+                            <th:block th:switch="${#fields.hasErrors('password')}">
+                                <p th:case="false" class="registrationDescription">Must contain 8 to 20 characters, 1
+                                    uppercase character, 1 number, 1 special character</p>
+                                <p th:case="true" class="errorText" th:errors="*{password}"></p>
+                            </th:block>
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="matchingPassword">Must be 8 to 20 characters</label>-->
+                            <input id="matchingPassword" type="password" th:field="*{matchingPassword}"
+                                   class="form-control" placeholder="Enter password again"  maxlength="32"/>
+                            <th:block th:if="${#fields.hasGlobalErrors()}">
+                                <p class = "errorText" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></p>
+                            </th:block>
+                        </div>
+                        <div class="form-group">
+                            <!--<label for="productCode">Product key can be found on the box</label>-->
+                            <input id="productCode" type="text" th:field="*{productCode}" class="form-control"
+                                   placeholder="Product key" maxlength="16"/>
+                            <th:block th:switch="${#fields.hasErrors('productCode')}">
+                                <p th:case="false" class="registrationDescription">Can be found on the box of the
+                                    product</p>
+                                <p th:case="true" class="errorText" th:errors="*{productCode}"></p>
+                            </th:block>
+                        </div>
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Send"/>
+                    </form>
+                    <!--<form action="#" th:action="@{/login}" th:object="${login}" method="post" id="login-form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="text" class="sr-only">Username</label>
+                            <input type="text" th:field="*{username}" name="email" id="email" class="form-control" placeholder="Username"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">Password</label>
+                            <input type="password" th:field="*{password}" name="key" id="key" class="form-control" placeholder="Password"/>
+                        </div>
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Login"/>
+                    </form>-->
+                    <hr/>
+                </div>
+            </div> <!-- /.col-xs-12 -->
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</section>
+</body>
+</html>

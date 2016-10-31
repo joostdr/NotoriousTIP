@@ -1,0 +1,56 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script   src="http://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"/>
+    <link href="../static/css/styles.css"
+          th:href="@{/css/styles.css}" rel = "stylesheet"/>
+</head>
+<body>
+<div th:if="${param.error}">
+    <script>alert("Wrong username or password");</script>
+</div>
+<div th:if="${param.logout}">
+    <script>alert("You have been logged out")</script>
+</div>
+<section id="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="form-wrap">
+                    <h1>Login</h1>
+                    <form action="#" th:action="@{/login}" th:object="${login}" method="post" id="login-form" autocomplete="off">
+                        <div class="form-group">
+                            <label for="text" class="sr-only">Username</label>
+                            <input type="text" th:field="*{username}" name="email" id="email" class="form-control" placeholder="Username"  maxlength="32"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="key" class="sr-only">Password</label>
+                            <input type="password" th:field="*{password}" name="key" id="key" class="form-control" placeholder="Password"  maxlength="32"/>
+                        </div>
+                        <input type="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Login"/>
+                    </form>
+                    <table class = "forgotRegisterTable">
+                        <tr>
+                            <td>
+                                <a id = "forgotPassword" class = "forget" href="resetpassword">Forgot your password?</a>
+                            </td>
+                            <td>
+                                <a id = "registerNewDevice" class = "newdevice" href="register">Register a new device</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <hr/>
+                </div>
+            </div> <!-- /.col-xs-12 -->
+        </div> <!-- /.row -->
+    </div> <!-- /.container -->
+</section>
+</body>
+</html>
