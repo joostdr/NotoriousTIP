@@ -16,6 +16,7 @@ log/
 target/
 *.mvn
 
+.gitignore
 src/main/resources/jdbc.properties
 src/main/resources/spring.xml
 src/main/resources/application.properties
