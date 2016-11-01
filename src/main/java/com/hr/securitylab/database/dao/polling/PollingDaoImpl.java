@@ -1,6 +1,8 @@
 package com.hr.securitylab.database.dao.polling;
 
+import com.hr.securitylab.database.DatabaseFactory;
 import com.hr.securitylab.database.entities.hibernate.Polling;
+import com.hr.securitylab.database.entities.rest.Response;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,10 @@ public class PollingDaoImpl implements PollingDao{
         query.setString("product_id",productId);
         Optional<Polling> result = Optional.ofNullable((Polling) query.uniqueResult());
         return result.isPresent() ? result.get() : null;
+    }
+
+    @Override
+    public void saveOrUpdate(Polling polling) {
+        sessionFactory.getCurrentSession().saveOrUpdate(polling);
     }
 }

@@ -25,4 +25,10 @@ public class PollingServiceImpl implements PollingService{
     public Polling findPollingByProductId(String productId) {
         return pollingDao.findPollingByProductId(productId);
     }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void saveOrUpdate(Polling polling) {
+        pollingDao.saveOrUpdate(polling);
+    }
 }

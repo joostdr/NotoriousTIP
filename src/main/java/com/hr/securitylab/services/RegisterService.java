@@ -1,14 +1,13 @@
 package com.hr.securitylab.services;
 
 import com.hr.securitylab.database.DatabaseFactory;
+import com.hr.securitylab.database.entities.hibernate.Polling;
 import com.hr.securitylab.database.entities.hibernate.Product;
 import com.hr.securitylab.database.entities.hibernate.User;
 import com.hr.securitylab.database.entities.validation.NewUser;
 import org.springframework.validation.Errors;
 
-import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 
 /**
  * Class which is used for registering a new user
@@ -17,21 +16,27 @@ import java.util.HashSet;
  */
 public class RegisterService {
 
-    public void showErrors(Errors errors){
-        System.out.println(errors.getGlobalErrors());
-    }
-
     public void createNewAccount(NewUser newUser){
         User user = new User();
         user.setUsername(newUser.getUsername());
         user.setPassword(PasswordService.encryptPassword(newUser.getPassword()));
         user.setCreated_at(new Date());
+
         Product product = DatabaseFactory.getProductService().findProductByProductCode(newUser.getProductCode());
         product.setUser(user);
         product.setActivated(true);
         product.setUpdated_at(new Date());
-        user.setProducts(new HashSet<>(Arrays.asList(product)));
-        DatabaseFactory.getUserService().saveOrUpdate(user);
+        user.setProduct(product);
+
+        Polling polling = new Polling();
+        polling.setVibrate(false);
+        polling.setHasUpdate(false);
+        polling.setProduct(product);
+        product.setPolling(polling);
+
+
         DatabaseFactory.getProductService().saveOrUpdate(product);
+        DatabaseFactory.getPollingService().saveOrUpdate(polling);
+        DatabaseFactory.getUserService().saveOrUpdate(user);
     }
 }

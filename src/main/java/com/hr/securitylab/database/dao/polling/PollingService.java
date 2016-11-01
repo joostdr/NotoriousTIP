@@ -9,4 +9,6 @@ public interface PollingService {
 
     public Polling findPollingByProductId(String productId);
 
+    public void saveOrUpdate(Polling polling);
+
 }

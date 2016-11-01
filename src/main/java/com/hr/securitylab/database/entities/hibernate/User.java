@@ -16,8 +16,9 @@ public class User {
     @Column(name = "user_id")
     private int id;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Product> products;
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -41,9 +42,8 @@ public class User {
     public User() {
     }
 
-    public User(int id, Set<Product> products, Set<Role> roles, String username, String password, Date created_at, Date updated_at, Date deleted_at) {
-        this.id = id;
-        this.products = products;
+    public User(Product product, Set<Role> roles, String username, String password, Date created_at, Date updated_at, Date deleted_at) {
+        this.product = product;
         this.roles = roles;
         this.username = username;
         this.password = password;
@@ -60,12 +60,12 @@ public class User {
         this.id = id;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Set<Role> getRoles() {

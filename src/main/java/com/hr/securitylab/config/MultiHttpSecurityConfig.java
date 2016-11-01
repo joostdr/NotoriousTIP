@@ -51,7 +51,6 @@ public class MultiHttpSecurityConfig extends WebSecurityConfigurerAdapter {
                     .csrf().disable() //disable cross side request forgery
                     .antMatcher("/api/**")
                     .authorizeRequests()
-                    .antMatchers("/api/on", "/api/off").permitAll() //endpoints which don't require httpbasic authentication
                     .anyRequest().authenticated()
                     .and()
                     .httpBasic(); //apply httpBasic to the api endpoints

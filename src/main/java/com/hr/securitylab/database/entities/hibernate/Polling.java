@@ -15,7 +15,7 @@ public class Polling {
     @Column(name = "polling_id")
     private int id;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "product_id")
     private Product product;
 

@@ -16,7 +16,7 @@ public class Product {
     @Column(name = "product_id")
     private int id;
 
-    @ManyToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -32,7 +32,7 @@ public class Product {
     @Column(name = "activated")
     private boolean activated;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "polling_id")
     private Polling polling;
 
