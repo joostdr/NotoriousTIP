@@ -4,11 +4,14 @@ import com.hr.securitylab.database.entities.rest.PollingRest;
 import com.hr.securitylab.database.entities.rest.Response;
 import com.hr.securitylab.services.EncryptionService;
 import com.hr.securitylab.services.PollingService;
+import com.hr.securitylab.services.UpdateService;
 import com.hr.securitylab.validation.ProductIdValidator;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
 
 /**
  * Controller which handles the api endpoints
@@ -21,10 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class RestApiController {
     private EncryptionService encryptionService;
     private PollingService pollingService;
+    private UpdateService updateService;
 
     public RestApiController() {
         this.encryptionService = new EncryptionService();
         this.pollingService = new PollingService();
+        this.updateService = new UpdateService();
     }
 
     /**
@@ -44,6 +49,18 @@ public class RestApiController {
             return pollingService.checkPollingTable(request.getHeader("productid"));
         }
         return new PollingRest(null,false,"Productid is not valid");
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String getUpdate(HttpServletRequest request){
+        if(ProductIdValidator.checkIfProductIdIsValid(request.getHeader("productid"))){
+            try {
+                return updateService.readUpdateFileContent();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "error";
     }
 
 }
