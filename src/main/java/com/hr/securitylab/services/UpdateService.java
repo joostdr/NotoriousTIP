@@ -17,7 +17,7 @@ public class UpdateService {
 
     public String readUpdateFileContent() throws IOException{
         try{
-            byte[] encoded = Files.readAllBytes(Paths.get("C:/init.lua"));
+            byte[] encoded = Files.readAllBytes(Paths.get("init.lua"));
             return new String(encoded,"UTF-8");
         }
         catch(FileNotFoundException e){
