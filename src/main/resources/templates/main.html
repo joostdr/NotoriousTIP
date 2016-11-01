@@ -31,7 +31,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="/">The Notorious TIP</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <form th:action="@{/logout}" method="post" class="navbar-form navbar-right">
@@ -52,7 +52,7 @@
                 <div class="row">
                     <div class="col-md-12 pull-center" id="vibrate">
                         <form th:action="@{/main}" method="post">
-                            <input type="submit" class="btn btn-success" data-width="100" value="Vibrate"/>
+                            <input id = "vibrateButton" type="submit" class="btn btn-success" data-width="100" value="Vibrate"/>
                         </form>
                     </div>
                 </div>
@@ -71,5 +71,11 @@
 </div>
 
 
-</body>
+</body><!--
+<script>
+    $("#vibrateButton").submit(function(){
+        //$('button').not(this).removeClass();
+        $(this).toggleClass("btn-success btn-danger");
+    });
+</script>-->
 </html>

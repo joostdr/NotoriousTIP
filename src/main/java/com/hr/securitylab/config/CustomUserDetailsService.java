@@ -42,9 +42,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String ip = getClientIP();
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-        /*if(loginAttemptService.isBlocked(ip)){
+        if(loginAttemptService.isBlocked(ip)){
             throw new RuntimeException("IP is blocked");
-        }*/
+        }
         try{
             User user = userService.findUserByUsername(username);
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
