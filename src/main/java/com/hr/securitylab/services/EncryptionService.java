@@ -14,6 +14,7 @@ import org.apache.commons.codec.binary.Hex;
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -36,21 +37,21 @@ public class EncryptionService {
     public void getKey(HttpServletRequest request) {
         String productId = request.getHeader("productid");
         String keyString = DatabaseFactory.getProductService().findById(productId).getEncryption_key();
-        byte[] encodedKey = keyString.getBytes();
+        byte[] encodedKey = keyString.getBytes(Charset.forName("UTF-8"));
         key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
     }
 
-    public static String decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, KeyNotSetException, InvalidKeyException {
+    public static String decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, KeyNotSetException, InvalidKeyException, UnsupportedEncodingException {
         Cipher cipher = Cipher.getInstance("AES");
         if (key == null) throw new KeyNotSetException("Key is not set");
         cipher.init(Cipher.DECRYPT_MODE, key);
-        return new String(cipher.doFinal(Base64.getDecoder().decode(cipherText)));
+        return new String(cipher.doFinal(Base64.getDecoder().decode(cipherText)), "UTF-8");
     }
 
     public static String encrypt(String plainText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
         Cipher cipher = Cipher.getInstance("AES");///CBC/PKCS5Padding
         cipher.init(Cipher.ENCRYPT_MODE, key);
-        byte[] encrypted = cipher.doFinal(plainText.getBytes());
+        byte[] encrypted = cipher.doFinal(plainText.getBytes(Charset.forName("UTF-8")));
         return Hex.encodeHexString(encrypted);
     }
 

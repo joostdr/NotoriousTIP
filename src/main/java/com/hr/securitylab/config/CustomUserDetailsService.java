@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,10 +42,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String ip = getClientIP();
-        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-        /*if(loginAttemptService.isBlocked(ip)){
+        if(loginAttemptService.isBlocked(ip)){
             throw new RuntimeException("IP is blocked");
-        }*/ //DISABLED bruteforce protection
+        }
         try{
             User user = userService.findUserByUsername(username);
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
