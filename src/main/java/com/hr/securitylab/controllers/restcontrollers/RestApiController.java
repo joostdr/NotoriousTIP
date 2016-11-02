@@ -2,16 +2,24 @@ package com.hr.securitylab.controllers.restcontrollers;
 
 import com.hr.securitylab.database.entities.rest.PollingRest;
 import com.hr.securitylab.database.entities.rest.Response;
+import com.hr.securitylab.database.entities.rest.UpdateRest;
 import com.hr.securitylab.services.EncryptionService;
 import com.hr.securitylab.services.PollingService;
 import com.hr.securitylab.services.UpdateService;
 import com.hr.securitylab.validation.ProductIdValidator;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.hibernate.sql.Update;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Controller which handles the api endpoints
@@ -52,7 +60,7 @@ public class RestApiController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String getUpdate(HttpServletRequest request){
+    public UpdateRest getUpdate(HttpServletRequest request) throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
         if(ProductIdValidator.checkIfProductIdIsValid(request.getHeader("productid"))){
             try {
                 return updateService.readUpdateFileContent();
@@ -60,7 +68,7 @@ public class RestApiController {
                 e.printStackTrace();
             }
         }
-        return "error";
+        return null;
     }
 
 }

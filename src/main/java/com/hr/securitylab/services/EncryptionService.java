@@ -10,6 +10,7 @@ import com.hr.securitylab.database.entities.rest.Response;
 import com.hr.securitylab.exceptions.KeyNotSetException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.codec.binary.Hex;
+import org.bouncycastle.util.encoders.Base64Encoder;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
@@ -26,6 +27,7 @@ import java.util.Base64;
 public class EncryptionService {
 
     private static SecretKey key;
+    private static byte[] encodedKey;
 
     /**
      * Retrieves encryptionkey from the hibernate for the corresponding device
@@ -37,7 +39,7 @@ public class EncryptionService {
     public void getKey(HttpServletRequest request) {
         String productId = request.getHeader("productid");
         String keyString = DatabaseFactory.getProductService().findById(productId).getEncryption_key();
-        byte[] encodedKey = keyString.getBytes(Charset.forName("UTF-8"));
+        encodedKey = keyString.getBytes(Charset.forName("UTF-8"));
         key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
     }
 
@@ -59,4 +61,13 @@ public class EncryptionService {
         ObjectMapper mapper = new ObjectMapper();
         return EncryptionService.encrypt(mapper.writeValueAsString(pollingRest));
     }
+
+    public static String computeHash(String content) throws NoSuchAlgorithmException, InvalidKeyException, UnsupportedEncodingException {
+        SecretKeySpec keySpec = new SecretKeySpec(encodedKey, "HmacSHA1");
+        Mac mac = Mac.getInstance("HmacSHA1");
+        mac.init(keySpec);
+        return new String (Base64.getEncoder().encode(mac.doFinal(content.getBytes())), "UTF-8");
+    }
+
+
 }
