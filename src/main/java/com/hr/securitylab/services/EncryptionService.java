@@ -1,7 +1,11 @@
 package com.hr.securitylab.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hr.securitylab.database.DatabaseFactory;
+import com.hr.securitylab.database.entities.hibernate.Polling;
 import com.hr.securitylab.database.entities.hibernate.Product;
+import com.hr.securitylab.database.entities.hibernate.User;
+import com.hr.securitylab.database.entities.rest.PollingRest;
 import com.hr.securitylab.database.entities.rest.Response;
 import com.hr.securitylab.exceptions.KeyNotSetException;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -36,19 +40,24 @@ public class EncryptionService {
         key = new SecretKeySpec(encodedKey, 0, encodedKey.length, "AES");
     }
 
-    public static Response decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, KeyNotSetException, InvalidKeyException {
+    public static String decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, IllegalBlockSizeException, KeyNotSetException, InvalidKeyException {
         Cipher cipher = Cipher.getInstance("AES");
         if (key == null) throw new KeyNotSetException("Key is not set");
         cipher.init(Cipher.DECRYPT_MODE, key);
-        String decryptedString = new String(cipher.doFinal(Base64.getDecoder().decode(cipherText)));
-        return new Response(200, decryptedString);
+        return new String(cipher.doFinal(Base64.getDecoder().decode(cipherText)));
     }
 
-    public static Response encrypt(String plainText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
+    public static String encrypt(String plainText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException, InvalidAlgorithmParameterException {
         Cipher cipher = Cipher.getInstance("AES");///CBC/PKCS5Padding
         cipher.init(Cipher.ENCRYPT_MODE, key);
         byte[] encrypted = cipher.doFinal(plainText.getBytes());
-        String encryptedString = Hex.encodeHexString(encrypted);
-        return new Response(200, encryptedString);
+        return Hex.encodeHexString(encrypted);
+    }
+
+    public static String encryptPollingModel(PollingRest pollingRest) throws Exception{
+        pollingRest = new PollingRest();
+        ObjectMapper mapper = new ObjectMapper();
+        return EncryptionService.encrypt(mapper.writeValueAsString(pollingRest));
+        //return EncryptionService.encrypt("Hello world");
     }
 }

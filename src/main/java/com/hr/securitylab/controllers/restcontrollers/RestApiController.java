@@ -43,12 +43,12 @@ public class RestApiController {
      * @return
      */
     @RequestMapping(value = "/poll", method = RequestMethod.POST)
-    public PollingRest checkPollingTable(HttpServletRequest request){
+    public String checkPollingTable(HttpServletRequest request) throws Exception{
         if(ProductIdValidator.checkIfProductIdIsValid(request.getHeader("productid"))){
             encryptionService.getKey(request);
-            return pollingService.checkPollingTable(request.getHeader("productid"));
+            return EncryptionService.encryptPollingModel(pollingService.checkPollingTable(request.getHeader("productid")));
         }
-        return new PollingRest(null,false,"Productid is not valid");
+        return "error";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
