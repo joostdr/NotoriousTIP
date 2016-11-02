@@ -55,9 +55,7 @@ public class EncryptionService {
     }
 
     public static String encryptPollingModel(PollingRest pollingRest) throws Exception{
-        pollingRest = new PollingRest();
         ObjectMapper mapper = new ObjectMapper();
         return EncryptionService.encrypt(mapper.writeValueAsString(pollingRest));
-        //return EncryptionService.encrypt("Hello world");
     }
 }
