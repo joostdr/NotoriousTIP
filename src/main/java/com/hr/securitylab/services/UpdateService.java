@@ -20,29 +20,21 @@ import java.security.NoSuchAlgorithmException;
  */
 public class UpdateService {
 
-    String fileContent;
-
     public UpdateService() {
     }
 
     public UpdateRest readUpdateFileContent() throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
-        String fileContent = readFile();
-        switch(fileContent){
-            case "File does not exist": return new UpdateRest(0,null,null,null,"File does not exist");
-            case "File not found": return new UpdateRest(0,null,null,null, "File not found");
-        }
         UpdateRest updateRest = new UpdateRest();
         updateRest.setVersionNumber(2);
-        updateRest.setFileName("test");
-        updateRest.setData(EncryptionService.encrypt(fileContent));
-        updateRest.setHmac(EncryptionService.computeHash(fileContent));
+        updateRest.setFileName("init.lua");
+        updateRest.setHmac(EncryptionService.computeHash(readFile()));
         updateRest.setError(null);
         return updateRest;
     }
 
-    private String readFile() throws IOException{
+    public String readFile() throws IOException{
         try{
-            byte[] encoded = Files.readAllBytes(Paths.get("C:/init.lua"));
+            byte[] encoded = Files.readAllBytes(Paths.get("update/init.lua"));
             return new String(encoded,"UTF-8");
         }
         catch(FileNotFoundException e){
