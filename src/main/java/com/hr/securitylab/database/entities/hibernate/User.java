@@ -47,9 +47,9 @@ public class User {
         this.roles = roles;
         this.username = username;
         this.password = password;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = deleted_at;
+        this.created_at = new Date(created_at.getTime());
+        this.updated_at = new Date(updated_at.getTime());
+        this.deleted_at = new Date(deleted_at.getTime());
     }
 
     public int getId() {
@@ -93,26 +93,26 @@ public class User {
     }
 
     public Date getCreated_at() {
-        return created_at;
+        return new Date(created_at.getTime());
     }
 
     public void setCreated_at(Date created_at) {
-        this.created_at = created_at;
+        this.created_at = new Date(created_at.getTime());
     }
 
     public Date getUpdated_at() {
-        return updated_at;
+        return new Date(updated_at.getTime());
     }
 
     public void setUpdated_at(Date updated_at) {
-        this.updated_at = updated_at;
+        this.updated_at = new Date(updated_at.getTime());
     }
 
     public Date getDeleted_at() {
-        return deleted_at;
+        return new Date(deleted_at.getTime());
     }
 
     public void setDeleted_at(Date deleted_at) {
-        this.deleted_at = deleted_at;
+        this.deleted_at = new Date(deleted_at.getTime());
     }
 }
