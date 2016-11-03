@@ -7,17 +7,15 @@ public class UpdateRest {
 
     private int versionNumber;
     private String fileName;
-    private String data;
     private String hmac;
     private String error;
 
     public UpdateRest() {
     }
 
-    public UpdateRest(int versionNumber, String fileName, String data, String hmac, String error) {
+    public UpdateRest(int versionNumber, String fileName, String hmac, String error) {
         this.versionNumber = versionNumber;
         this.fileName = fileName;
-        this.data = data;
         this.hmac = hmac;
         this.error = error;
     }
@@ -36,14 +34,6 @@ public class UpdateRest {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public String getHmac() {

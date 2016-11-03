@@ -71,4 +71,16 @@ public class RestApiController {
         return null;
     }
 
+    @RequestMapping(value = "/data", method = RequestMethod.POST)
+    public String readFile(HttpServletRequest request){
+        if(ProductIdValidator.checkIfProductIdIsValid(request.getHeader("productid"))){
+            try {
+                return updateService.readFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "error";
+    }
+
 }
